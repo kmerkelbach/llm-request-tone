@@ -111,6 +111,7 @@ def run_eval(
     # Prepare environment (inherit + set LOGLEVEL)
     env = os.environ.copy()
     env["LOGLEVEL"] = str(loglevel)
+    env["OPENAI_API_KEY"] = api_key
 
     try:
         result = subprocess.run(
