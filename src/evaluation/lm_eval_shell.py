@@ -4,6 +4,8 @@ import os
 import shlex
 import subprocess
 from typing import Iterable, Optional, Union, Sequence
+from loguru import logger
+from textwrap import wrap
 
 
 def _normalize_tasks(tasks: Optional[Union[str, Sequence[str]]]) -> str:
@@ -27,13 +29,13 @@ def _normalize_tasks(tasks: Optional[Union[str, Sequence[str]]]) -> str:
 def run_eval(
     *,
     # Required-by-you params (but all have sane defaults)
-    model: str = "anthropic/claude-3.7-sonnet",
+    model: str = "deepseek/deepseek-r1-distill-llama-8b",
     num_concurrent: int = 2,
     tasks: Optional[Union[str, Sequence[str]]] = ("gsm8k", "mmlu_pro"),
     num_fewshot: int = 5,
     limit: int = 1,
     temperature: float = 0.0,
-    max_tokens: int = 512,
+    max_tokens: int = 2048,
     output_path: str = "results_openrouter_smoke.json",
     # Fixed bits from your bash (exposed here in case you want to tweak later)
     base_url: str = "https://openrouter.ai/api/v1/chat/completions",
@@ -43,14 +45,14 @@ def run_eval(
     max_retries: int = 3,
     loglevel: str = "DEBUG",
     lm_eval_executable: str = "lm_eval",
-    capture_output: bool = True,
+    silent: bool = False,
 ) -> subprocess.CompletedProcess:
     """
     Run EleutherAI's lm-evaluation-harness CLI with OpenRouter chat completions.
 
     Example:
         from run_lm_eval import run_eval
-        run_eval(model="anthropic/claude-3.7-sonnet", num_concurrent=2)
+        run_eval(model="deepseek/deepseek-r1-distill-llama-8b", num_concurrent=2)
 
     Parameters mirror your bash flags. Any you don't set use defaults.
     Returns subprocess.CompletedProcess (check .returncode, .stdout, .stderr).
@@ -113,12 +115,15 @@ def run_eval(
     env["LOGLEVEL"] = str(loglevel)
     env["OPENAI_API_KEY"] = api_key
 
+    if not silent:
+        logger.info("\n".join(wrap(f"Running command:\n'{' '.join(cmd)}'", width=120)))
+
     try:
         result = subprocess.run(
             cmd,
             env=env,
-            check=False,  # don't raise automatically; let caller inspect returncode
-            capture_output=capture_output,
+            check=False,
+            capture_output=silent,
             text=True,
         )
     except FileNotFoundError as e:
