@@ -1,9 +1,10 @@
-# run_lm_eval.py
 import json
 import os
-import shlex
+from glob import glob
+import random
+import string
 import subprocess
-from typing import Iterable, Optional, Union, Sequence
+from typing import Optional, Union, Sequence, Dict
 from loguru import logger
 from textwrap import wrap
 
@@ -32,12 +33,11 @@ def run_eval(
     model: str = "deepseek/deepseek-r1-distill-llama-8b",
     num_concurrent: int = 2,
     tasks: Optional[Union[str, Sequence[str]]] = ("gsm8k", "mmlu_pro"),
-    num_fewshot: int = 5,
+    num_fewshot: int = 0,
     limit: int = 1,
     temperature: float = 0.0,
-    max_tokens: int = 2048,
-    output_path: str = "results_openrouter_smoke.json",
-    # Fixed bits from your bash (exposed here in case you want to tweak later)
+    max_tokens: int = 4096,
+    output_path: str = "results_llm_eval.json",
     base_url: str = "https://openrouter.ai/api/v1/chat/completions",
     api_key_env: str = "OPENROUTER_API_KEY",
     batch_size: int = 1,
@@ -45,17 +45,16 @@ def run_eval(
     max_retries: int = 3,
     loglevel: str = "DEBUG",
     lm_eval_executable: str = "lm_eval",
+    include_path: str = "../tasks/lm_eval_task_overrides/templated_tasks",
     silent: bool = False,
-) -> subprocess.CompletedProcess:
+) -> Dict:
     """
-    Run EleutherAI's lm-evaluation-harness CLI with OpenRouter chat completions.
+    Run EleutherAI's lm-evaluation-harness CLI.
 
     Example:
         from run_lm_eval import run_eval
         run_eval(model="deepseek/deepseek-r1-distill-llama-8b", num_concurrent=2)
 
-    Parameters mirror your bash flags. Any you don't set use defaults.
-    Returns subprocess.CompletedProcess (check .returncode, .stdout, .stderr).
     """
     # Get API key from env (we don't put literal ${VARS} into the CLI string)
     api_key = os.environ.get(api_key_env)
@@ -87,6 +86,11 @@ def run_eval(
     # Normalize tasks to a comma-separated string
     tasks_arg = _normalize_tasks(tasks)
 
+    # Make random output path
+    output_filename, output_extension = os.path.splitext(output_path)
+    output_filename += "_" + "".join([random.choice(string.digits) for _ in range(6)])
+    output_path = output_filename + output_extension
+
     # Compose the CLI arguments list (no shell=True; no quoting headaches)
     cmd: list[str] = [
         lm_eval_executable,
@@ -94,6 +98,8 @@ def run_eval(
         "local-chat-completions",
         "--model_args",
         model_args,
+        "--include_path",
+        include_path,
         "--tasks",
         tasks_arg,
         "--num_fewshot",
@@ -146,5 +152,12 @@ def run_eval(
             msg.append("stderr:\n" + result.stderr.strip())
         raise RuntimeError("\n".join(msg))
 
-    return result
+    # Open results file
+    result_file = glob(os.path.join(".", output_filename + "*"))[0]
+    with open(result_file, "r") as f:
+        res = json.load(f)
 
+    # Remove JSON file
+    os.remove(result_file)
+
+    return res
