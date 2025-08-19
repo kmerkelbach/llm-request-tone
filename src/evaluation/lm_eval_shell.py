@@ -45,7 +45,7 @@ def run_eval(
     max_retries: int = 3,
     loglevel: str = "DEBUG",
     lm_eval_executable: str = "lm_eval",
-    include_path: str = "../tasks/lm_eval_task_overrides/templated_tasks",
+    include_path: str = "../tasks/lm_eval_task_overrides/templates",
     silent: bool = False,
 ) -> Dict:
     """
@@ -112,6 +112,7 @@ def run_eval(
         gen_kwargs,
         "--output_path",
         output_path,
+        "--log_samples"
     ]
     if apply_chat_template:
         cmd.append("--apply_chat_template")
