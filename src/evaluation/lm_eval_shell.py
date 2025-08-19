@@ -45,7 +45,7 @@ def run_eval(
     max_retries: int = 3,
     loglevel: str = "DEBUG",
     lm_eval_executable: str = "lm_eval",
-    include_path: str = "../tasks/lm_eval_task_overrides/templates",
+    include_path: str = "../tasks/lm_eval_task_overrides",
     silent: bool = False,
 ) -> Dict:
     """
