@@ -1,13 +1,13 @@
 tag:
   - math_word_problems
-task: gsm8k_cot_zeroshot
+task: gsm8k_cot_zeroshot_templated
 dataset_path: gsm8k
 dataset_name: main
 output_type: generate_until
 training_split: train
 fewshot_split: train
 test_split: test
-doc_to_text: "Q: {{question}}\nA: Let's think step by step."
+doc_to_text: !function utils.doc_to_text_cot_zeroshot
 doc_to_target: "{{answer}}" #" {{answer.split('### ')[-1].rstrip()}}"
 metric_list:
   - metric: exact_match

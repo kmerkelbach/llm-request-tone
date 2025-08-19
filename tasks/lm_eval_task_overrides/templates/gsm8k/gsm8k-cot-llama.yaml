@@ -1,7 +1,7 @@
 dataset_name: main
 dataset_path: gsm8k
 doc_to_target: '{{answer.split(''####'')[-1].strip() if answer is defined else target}}'
-doc_to_text: "Given the following problem, reason and give a final answer to the problem.\nProblem: {{question}}\nYour response should end with \"The final answer is [answer]\" where [answer] is the response to the problem.\n"
+doc_to_text: !function utils.doc_to_text_cot_llama
 fewshot_config:
   sampler: first_n
   samples:
@@ -80,5 +80,5 @@ metric_list:
 num_fewshot: 8
 output_type: generate_until
 repeats: 1
-task: gsm8k_cot_llama
+task: gsm8k_cot_llama_templated
 test_split: test
