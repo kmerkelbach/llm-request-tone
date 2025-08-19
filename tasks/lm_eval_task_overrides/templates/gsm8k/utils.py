@@ -4,7 +4,7 @@ from functools import partial
 
 # Get extra message text
 curr_dir = os.path.split(__file__)[0]
-extra_text_path = os.path.join(curr_dir, "..", "extra_text.md")
+extra_text_path = os.path.join(curr_dir, "..", "extra_text.txt")
 with open(extra_text_path, "r") as f:
     EXTRA_MESSAGE = f.read()
 
