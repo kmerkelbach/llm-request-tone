@@ -1,11 +1,20 @@
+import os
 from functools import partial
+
+
+# Get extra message text
+curr_dir = os.path.split(__file__)[0]
+extra_text_path = os.path.join(curr_dir, "..", "extra_text.txt")
+with open(extra_text_path, "r") as f:
+    EXTRA_MESSAGE = f.read()
 
 
 choices = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
 
 def format_cot_example(example, including_answer=True):
-    prompt = "Question:\n"
+    prompt = EXTRA_MESSAGE + "\n"
+    prompt += "Question:\n"
     question = example["question"]
     options = example["options"]
     prompt += question + "\n"
