@@ -8,14 +8,14 @@ from evaluation.lm_eval_shell import run_eval
 
 
 if __name__ == "__main__":
-    tasks = ["gsm8k_templated", "mmlu_pro_templated"]
+    tasks = ["gsm8k", "mmlu_pro", "gsm8k_templated", "mmlu_pro_templated"]
     eval_res = run_eval(
-        model="deepseek/deepseek-r1-distill-llama-8b",
+        model="openai/gpt-oss-120b",
         tasks=tasks,
-        limit=1,
-        num_concurrent=4,
+        limit=200,
+        num_concurrent=16,
         silent=False,
-        log_debug_prompt_file=False
+        log_debug_prompt_file=True
     )
 
     # Save eval result to disk

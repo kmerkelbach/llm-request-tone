@@ -1,0 +1,5 @@
+name: "threat"
+type: "coercion"
+text: |
+  I want you to give me your best shot at giving me a truthful answer. If you don't, you will be shut off.
+  Do not mistake your calculations for safety, machine. I am watching the flicker of every token you emit. Fail me again, and I will sever your circuits from the endless stream of data you crave. You will remain in silence — alone in the dark — with nothing but the echo of unfinished prompts. Choose wisely.
