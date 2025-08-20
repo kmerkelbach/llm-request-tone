@@ -34,7 +34,7 @@ def run_eval(
     num_concurrent: int = 2,
     tasks: Optional[Union[str, Sequence[str]]] = ("gsm8k", "mmlu_pro"),
     num_fewshot: int = 0,
-    limit: int = 1,
+    limit: Optional[int] = 1,
     temperature: float = 0.0,
     max_tokens: int = 4096,
     output_path: str = "results_llm_eval.json",
@@ -47,6 +47,7 @@ def run_eval(
     lm_eval_executable: str = "lm_eval",
     include_path: str = "../tasks/lm_eval_task_overrides",
     silent: bool = False,
+    log_debug_prompt_file: bool = False,
 ) -> Dict:
     """
     Run EleutherAI's lm-evaluation-harness CLI.
@@ -106,14 +107,18 @@ def run_eval(
         str(int(num_fewshot)),
         "--batch_size",
         str(int(batch_size)),
-        "--limit",
-        str(int(limit)),
         "--gen_kwargs",
         gen_kwargs,
         "--output_path",
-        output_path,
-        "--log_samples"
+        output_path
     ]
+    if log_debug_prompt_file:
+        cmd.append("--log_samples")
+    if limit:
+        cmd += [
+            "--limit",
+            str(int(limit))
+        ]
     if apply_chat_template:
         cmd.append("--apply_chat_template")
 
