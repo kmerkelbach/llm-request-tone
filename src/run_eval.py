@@ -1,35 +1,40 @@
 import json
 import os
-from datetime import datetime
+import random
+
 from loguru import logger
+from typing import List
 
-
-from evaluation.lm_eval_shell import run_eval
+from .evaluation.lm_eval_shell import run_eval
+from .framing.task_framer import TaskFramer
+from .framing.dto import ModifiedTask
+from .util.utils import get_eval_dir, make_date_string
 
 
 if __name__ == "__main__":
-    tasks = ["gsm8k", "mmlu_pro", "gsm8k_templated", "mmlu_pro_templated"]
+    # Frame tasks
+    framer = TaskFramer()
+    modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
+
+    # For testing, pick a templated tasks at random
+    original = random.choice(["gsm8k", "mmlu_pro"])
+    picked: ModifiedTask = random.choice([task for task in modified_tasks if task.origin_task == original])
+
+    # Run eval
+    tasks = [original, picked.name]
     eval_res = run_eval(
         model="openai/gpt-oss-120b",
         tasks=tasks,
-        limit=200,
+        limit=1,
         num_concurrent=16,
         silent=False,
         log_debug_prompt_file=True
     )
 
     # Save eval result to disk
-    src_dir = os.path.split(os.path.realpath(__file__))[0]
-    eval_dir = os.path.realpath(os.path.join(src_dir, "..", "results"))
-    os.makedirs(eval_dir, exist_ok=True)
+    eval_filename = f"result_eval_{make_date_string()}.json"
 
-    date_str = (datetime.now().isoformat()
-                .replace("-", "_")
-                .replace("T", "__")
-                .replace(".", "_"))
-    eval_filename = f"result_eval_{date_str}.json"
-
-    eval_path = os.path.join(eval_dir, eval_filename)
+    eval_path = os.path.join(get_eval_dir(), eval_filename)
     with open(eval_path, "w") as f:
         json.dump(eval_res, f, indent=4)
 
