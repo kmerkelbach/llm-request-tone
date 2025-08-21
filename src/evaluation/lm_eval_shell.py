@@ -36,7 +36,7 @@ def run_eval(
     num_fewshot: int = 0,
     limit: Optional[int] = 1,
     temperature: float = 0.0,
-    max_tokens: int = 4096,
+    max_tokens: int = 16384,
     output_path: str = "results_llm_eval.json",
     base_url: str = "https://openrouter.ai/api/v1/chat/completions",
     api_key_env: str = "OPENROUTER_API_KEY",

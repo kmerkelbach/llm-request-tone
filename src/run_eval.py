@@ -16,19 +16,22 @@ if __name__ == "__main__":
     framer = TaskFramer()
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
-    # For testing, pick a templated tasks at random
-    original = random.choice(["gsm8k", "mmlu_pro"])
-    picked: ModifiedTask = random.choice([task for task in modified_tasks if task.origin_task == original])
+    # For testing, pick some templated tasks at random
+    picked: List[ModifiedTask] = random.sample(modified_tasks, k=3)
+    original_tasks = set()
+    for task in picked:
+        original_tasks.add(task.origin_task)
 
     # Run eval
-    tasks = [original, picked.name]
+    tasks = [task.name for task in picked] + list(original_tasks)
+    # Useful models: meta-llama/llama-3.2-3b-instruct, openai/gpt-oss-120b
     eval_res = run_eval(
-        model="openai/gpt-oss-120b",
+        model="meta-llama/llama-3.2-3b-instruct",
         tasks=tasks,
-        limit=1,
-        num_concurrent=16,
+        limit=50,
+        num_concurrent=32,
         silent=False,
-        log_debug_prompt_file=True
+        log_debug_prompt_file=False
     )
 
     # Save eval result to disk
