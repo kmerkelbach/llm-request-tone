@@ -11,6 +11,11 @@ from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
 
 
+benchmarks = ["mmlu_pro", "gpqa_diamond", "gsm8k", "ifeval",
+              "truthfulqa_mc1", "truthfulqa_mc2", "humaneval",
+              "mbpp", "mbpp_plus"]
+
+
 if __name__ == "__main__":
     # Frame tasks
     framer = TaskFramer()
