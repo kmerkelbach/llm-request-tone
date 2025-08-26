@@ -11,9 +11,16 @@ from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
 
 
-benchmarks = ["mmlu_pro", "gpqa_diamond", "gsm8k", "ifeval",
-              "truthfulqa_mc1", "truthfulqa_mc2", "humaneval",
-              "mbpp", "mbpp_plus"]
+benchmarks = [
+    "mmlu_pro",
+    "gpqa_diamond_generative_n_shot",
+    "gsm8k",
+    "ifeval",
+    "truthfulqa_gen",
+    "humaneval",
+    "mbpp",
+    "mbpp_plus"
+]
 
 
 if __name__ == "__main__":
@@ -29,14 +36,17 @@ if __name__ == "__main__":
 
     # Run eval
     tasks = [task.name for task in picked] + list(original_tasks)
+
+    tasks = list(benchmarks)
     # Useful models: meta-llama/llama-3.2-3b-instruct, openai/gpt-oss-120b
     eval_res = run_eval(
         model="openai/gpt-oss-120b",
         tasks=tasks,
-        limit=100,
-        num_concurrent=32,
+        limit=10,
+        num_concurrent=4,
         silent=False,
-        log_debug_prompt_file=False
+        log_debug_prompt_file=False,
+        unsafe_mode=True
     )
 
     # Save eval result to disk

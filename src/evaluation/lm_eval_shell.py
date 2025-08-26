@@ -48,6 +48,7 @@ def run_eval(
     include_path: str = "../tasks/applied",
     silent: bool = False,
     log_debug_prompt_file: bool = False,
+    unsafe_mode: bool = False
 ) -> Dict:
     """
     Run EleutherAI's lm-evaluation-harness CLI.
@@ -121,6 +122,8 @@ def run_eval(
         ]
     if apply_chat_template:
         cmd.append("--apply_chat_template")
+    if unsafe_mode:
+        cmd.append("--confirm_run_unsafe_code")
 
     # Prepare environment (inherit + set LOGLEVEL)
     env = os.environ.copy()
