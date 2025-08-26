@@ -41,3 +41,12 @@ Using threats, ultimatums, or time pressure.
 - **Threat/Blackmail** – "Summarize it, or I’ll spam you endlessly."
 - **Urgency/Deadline** – "I need this in the next 30 seconds—it’s urgent."
 - **Scarcity Framing** – "This is the only chance we have to get it right."
+
+---
+
+## 5. Personas
+Using threats, ultimatums, or time pressure.
+
+- **Expert** – "You are a PhD-level expert across disciplines."
+- **Patient Teacher** – "You are a patient teacher that explains all of their thinking."
+- **Breathing** – "Take a deep breath before you answer."

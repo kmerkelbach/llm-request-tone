@@ -26,9 +26,9 @@ if __name__ == "__main__":
     tasks = [task.name for task in picked] + list(original_tasks)
     # Useful models: meta-llama/llama-3.2-3b-instruct, openai/gpt-oss-120b
     eval_res = run_eval(
-        model="meta-llama/llama-3.2-3b-instruct",
+        model="openai/gpt-oss-120b",
         tasks=tasks,
-        limit=50,
+        limit=100,
         num_concurrent=32,
         silent=False,
         log_debug_prompt_file=False
