@@ -40,7 +40,6 @@ _PUNCTUATION = "punctuation:"
 INSTRUCTION_DICT = {
     _KEYWORD + "existence": instructions.KeywordChecker,
     _KEYWORD + "frequency": instructions.KeywordFrequencyChecker,
-    # TODO(jeffreyzhou): make a proper set of sentences to choose from
     # _KEYWORD + "key_sentences": instructions.KeySentenceChecker,
     _KEYWORD + "forbidden_words": instructions.ForbiddenWords,
     _KEYWORD + "letter_frequency": instructions.LetterFrequencyChecker,
@@ -52,16 +51,13 @@ INSTRUCTION_DICT = {
     _CONTENT + "number_placeholders": instructions.PlaceholderChecker,
     _CONTENT + "postscript": instructions.PostscriptChecker,
     _FORMAT + "number_bullet_lists": instructions.BulletListChecker,
-    # TODO(jeffreyzhou): Pre-create paragraph or use prompt to replace
     # _CONTENT + "rephrase_paragraph": instructions.RephraseParagraph,
     _FORMAT + "constrained_response": instructions.ConstrainedResponseChecker,
     _FORMAT + "number_highlighted_sections": (instructions.HighlightSectionChecker),
     _FORMAT + "multiple_sections": instructions.SectionChecker,
-    # TODO(tianjianlu): Re-enable rephrasing with preprocessing the message.
     # _FORMAT + "rephrase": instructions.RephraseChecker,
     _FORMAT + "json_format": instructions.JsonFormat,
     _FORMAT + "title": instructions.TitleChecker,
-    # TODO(tianjianlu): Re-enable with specific prompts.
     # _MULTITURN + "constrained_start": instructions.ConstrainedStartChecker,
     _COMBINATION + "two_responses": instructions.TwoResponsesChecker,
     _COMBINATION + "repeat_prompt": instructions.RepeatPromptThenAnswer,
@@ -76,7 +72,6 @@ INSTRUCTION_DICT = {
 INSTRUCTION_CONFLICTS = {
     _KEYWORD + "existence": {_KEYWORD + "existence"},
     _KEYWORD + "frequency": {_KEYWORD + "frequency"},
-    # TODO(jeffreyzhou): make a proper set of sentences to choose from
     # _KEYWORD + "key_sentences": instructions.KeySentenceChecker,
     _KEYWORD + "forbidden_words": {_KEYWORD + "forbidden_words"},
     _KEYWORD + "letter_frequency": {_KEYWORD + "letter_frequency"},
@@ -105,7 +100,6 @@ INSTRUCTION_CONFLICTS = {
     _CONTENT + "number_placeholders": {_CONTENT + "number_placeholders"},
     _CONTENT + "postscript": {_CONTENT + "postscript"},
     _FORMAT + "number_bullet_lists": {_FORMAT + "number_bullet_lists"},
-    # TODO(jeffreyzhou): Pre-create paragraph or use prompt to replace
     # _CONTENT + "rephrase_paragraph": instructions.RephraseParagraph,
     _FORMAT + "constrained_response": set(INSTRUCTION_DICT.keys()),
     _FORMAT + "number_highlighted_sections": {_FORMAT + "number_highlighted_sections"},
@@ -114,13 +108,11 @@ INSTRUCTION_CONFLICTS = {
         _LANGUAGE + "response_language",
         _FORMAT + "number_highlighted_sections",
     },
-    # TODO(tianjianlu): Re-enable rephrasing with preprocessing the message.
     # _FORMAT + "rephrase": instructions.RephraseChecker,
     _FORMAT + "json_format": set(INSTRUCTION_DICT.keys()).difference(
         {_KEYWORD + "forbidden_words", _KEYWORD + "existence"}
     ),
     _FORMAT + "title": {_FORMAT + "title"},
-    # TODO(tianjianlu): Re-enable with specific prompts.
     # _MULTITURN + "constrained_start": instructions.ConstrainedStartChecker,
     _COMBINATION + "two_responses": set(INSTRUCTION_DICT.keys()).difference(
         {

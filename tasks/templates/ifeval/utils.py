@@ -2,6 +2,18 @@ import dataclasses
 from typing import Dict, Optional, Union
 
 from lm_eval.tasks.ifeval import instructions_registry
+import os
+
+
+# Get extra message text
+curr_dir = os.path.split(__file__)[0]
+extra_text_path = os.path.join(curr_dir, "extra_text.txt")
+with open(extra_text_path, "r") as f:
+    EXTRA_MESSAGE = f.read()
+
+
+def doc_to_text(example):
+    return EXTRA_MESSAGE + "\n" + example['prompt']
 
 
 @dataclasses.dataclass

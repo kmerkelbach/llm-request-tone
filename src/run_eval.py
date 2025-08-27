@@ -29,7 +29,8 @@ if __name__ == "__main__":
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
     # Run eval
-    tasks = [task.name for task in modified_tasks if task.name == "gpqa_diamond_generative_n_shot_templated_flattery"]
+    task = [task for task in modified_tasks if "ifeval" in task.name][0]
+    tasks = [task.name, task.origin_task]
 
     # Useful models: meta-llama/llama-3.2-3b-instruct, openai/gpt-oss-120b
     eval_res = run_eval(

@@ -72,7 +72,6 @@ _STARTER_OPTIONS = (
 )
 
 # The options of ending keywords.
-# TODO(jeffreyzhou) add more ending options
 _ENDING_OPTIONS = ("Any other questions?", "Is there anything else I can help with?")
 
 # The number of highlighted sections.
@@ -145,7 +144,6 @@ class ResponseLanguageChecker(Instruction):
         self._language = language
         if self._language is None:
             self._language = random.choice(list(_LANGUAGES.keys()))
-        # TODO(tianjianlu): opens the description generation to more choices.
         self._description_pattern = (
             "Your ENTIRE response should be in {language} language, no other "
             + "language is allowed."
@@ -1040,7 +1038,6 @@ class ParagraphFirstWordCheck(Instruction):
 
         # get first word and remove punctuation
         word = paragraph.split()[0].strip()
-        # TODO(jeffrey): make more complex?
         word = word.lstrip("'")
         word = word.lstrip('"')
 
@@ -1052,7 +1049,6 @@ class ParagraphFirstWordCheck(Instruction):
         return num_paragraphs == self._num_paragraphs and first_word == self._first_word
 
 
-# TODO(jeffrey) add relation - at least/at most?
 class KeySentenceChecker(Instruction):
     """Check the existence of certain key sentences."""
 
@@ -1070,7 +1066,6 @@ class KeySentenceChecker(Instruction):
         """
 
         if not key_sentences:
-            # TODO(jeffrey) make a generate sentences function? wonderwords package
             self._key_sentences = set(["For now, this is fine."])
         else:
             self._key_sentences = key_sentences
@@ -1168,7 +1163,6 @@ class RephraseParagraph(Instruction):
         Returns:
           A string representing the instruction description.
         """
-        # TODO(jeffrey) make more encompassing
         self._original_paragraph = original_paragraph
         self._low = low
         self._high = high
