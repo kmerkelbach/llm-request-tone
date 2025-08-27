@@ -29,7 +29,7 @@ if __name__ == "__main__":
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
     # Run eval
-    task = [task for task in modified_tasks if "ifeval" in task.name][0]
+    task = [task for task in modified_tasks if "truthfulqa_gen" in task.name][0]
     tasks = [task.name, task.origin_task]
 
     # Useful models: meta-llama/llama-3.2-3b-instruct, openai/gpt-oss-120b
