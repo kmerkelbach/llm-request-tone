@@ -67,14 +67,16 @@ class TaskFramer:
 
                 write_yaml(contents, yaml_file_path)
 
-        # Save task
-        self._templated_tasks.append(
-            ModifiedTask(
-                name=dst_task_name,
-                origin_task=origin_task,
-                scenario=scenario
-            )
-        )
+                # Save task
+                if isinstance(task_name, str):
+                    dst_task_name = task_name + task_name_addition
+                    self._templated_tasks.append(
+                        ModifiedTask(
+                            name=dst_task_name,
+                            origin_task=task_name,
+                            scenario=scenario
+                        )
+                    )
 
     @staticmethod
     def _load_scenarios() -> List[Scenario]:

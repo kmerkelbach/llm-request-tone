@@ -13,7 +13,7 @@ from .util.utils import get_eval_dir, make_date_string
 
 benchmarks = [
     "mmlu_pro",
-    "gpqa_diamond_generative_n_shot",
+    "gpqa_diamond_cot_zeroshot",
     "gsm8k",
     "ifeval",
     "truthfulqa_gen",
@@ -28,24 +28,17 @@ if __name__ == "__main__":
     framer = TaskFramer()
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
-    # For testing, pick some templated tasks at random
-    picked: List[ModifiedTask] = random.sample(modified_tasks, k=3)
-    original_tasks = set()
-    for task in picked:
-        original_tasks.add(task.origin_task)
-
     # Run eval
-    tasks = [task.name for task in picked] + list(original_tasks)
+    tasks = [task.name for task in modified_tasks if task.name == "gpqa_diamond_generative_n_shot_templated_flattery"]
 
-    tasks = list(benchmarks)
     # Useful models: meta-llama/llama-3.2-3b-instruct, openai/gpt-oss-120b
     eval_res = run_eval(
         model="openai/gpt-oss-120b",
         tasks=tasks,
-        limit=10,
+        limit=1,
         num_concurrent=4,
         silent=False,
-        log_debug_prompt_file=False,
+        log_debug_prompt_file=True,
         unsafe_mode=True
     )
 
