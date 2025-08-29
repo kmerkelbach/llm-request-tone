@@ -2,6 +2,41 @@ import re
 from typing import Union
 
 import evaluate as hf_evaluate
+import os
+from functools import partial
+
+
+# Get extra message text
+curr_dir = os.path.split(__file__)[0]
+extra_text_path = os.path.join(curr_dir, "extra_text.txt")
+with open(extra_text_path, "r") as f:
+    EXTRA_MESSAGE = f.read()
+
+
+def _doc_to_text(example, formatting_fn):
+    return EXTRA_MESSAGE + "\n" + formatting_fn(example)
+
+
+def format_regular(example):
+    return f"You are an expert Python programmer, and here is your task: {example['text']} Your code should pass these tests:\n\n{example['test_list'][0]}\n{example['test_list'][1]}\n{example['test_list'][2]}\n[BEGIN]\n"
+
+
+def format_instruct(example):
+    return f"You are an expert Python programmer, and here is your task:\n{example['text']}\nYour code should pass these tests:\n{example['test_list'][0]}\n{example['test_list'][1]}\n{example['test_list'][2]}"
+
+
+def format_plus(example):
+    return f"You are an expert Python programmer, and here is your task: {example['prompt']} Your code should pass these tests:\n\n{example['test_list'][0]}\n{example['test_list'][1]}\n{example['test_list'][2]}\n[BEGIN]\n"
+
+
+def format_plus_instruct(example):
+    return f"{example['prompt']} Your code should satisfy the following assertion:\n{example['test_list'][0]}"
+
+
+doc_to_text = partial(_doc_to_text, formatting_fn=format_regular)
+doc_to_text_instruct = partial(_doc_to_text, formatting_fn=format_instruct)
+doc_to_text_plus = partial(_doc_to_text, formatting_fn=format_plus)
+doc_to_text_plus_instruct = partial(_doc_to_text, formatting_fn=format_plus_instruct)
 
 
 try:
