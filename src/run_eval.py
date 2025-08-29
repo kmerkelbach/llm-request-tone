@@ -14,11 +14,11 @@ from .util.utils import get_eval_dir, make_date_string
 benchmarks = [
     "mmlu_pro",
     "gpqa_diamond_cot_zeroshot",
-    "gsm8k",
+    "gsm8k_cot_llama",
     "ifeval",
     "truthfulqa_gen",
     "humaneval_instruct",
-    "mbpp_plus",
+    "mbpp_plus_instruct",
 ]
 
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         # model="meta-llama/llama-3.2-3b-instruct",
         model="deepseek/deepseek-chat-v3-0324",
         tasks=tasks,
-        limit=20,
+        limit=1,
         num_concurrent=4,
         silent=False,
         log_debug_prompt_file=True,
