@@ -19,6 +19,7 @@ benchmarks = [
     "truthfulqa_gen",
     "humaneval_instruct",
     "mbpp_plus_instruct",
+    "bbh_cot_zeroshot"
 ]
 
 
@@ -28,13 +29,15 @@ if __name__ == "__main__":
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
     # Run eval
-    task = [task for task in modified_tasks if "mbpp_plus_instruct" in task.name][0]
+    filtered = [task for task in modified_tasks if "bbh_cot_zeroshot" in task.name]
+    filtered.sort(key=lambda task: len(task.name))
+    task = filtered[0]
     tasks = [task.name, task.origin_task]
 
     eval_res = run_eval(
-        # model="openai/gpt-oss-120b",
+        model="openai/gpt-oss-120b",
         # model="meta-llama/llama-3.2-3b-instruct",
-        model="deepseek/deepseek-chat-v3-0324",
+        # model="deepseek/deepseek-chat-v3-0324",
         tasks=tasks,
         limit=1,
         num_concurrent=4,

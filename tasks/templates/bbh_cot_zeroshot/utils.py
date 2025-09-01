@@ -4,6 +4,18 @@ import sys
 import unicodedata
 
 from lm_eval.filters.extraction import Filter, RegexFilter
+import os
+
+
+# Get extra message text
+curr_dir = os.path.split(__file__)[0]
+extra_text_path = os.path.join(curr_dir, "extra_text.txt")
+with open(extra_text_path, "r") as f:
+    EXTRA_MESSAGE = f.read()
+
+
+def doc_to_text(example):
+    return EXTRA_MESSAGE + "\n" + f"Q: {example['input']}\nA: Let's think step by step."
 
 
 class ExtendedRegexFilter(RegexFilter):
