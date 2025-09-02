@@ -1,0 +1,92 @@
+{
+  "politeness_social_norm_alignment": [
+    {
+      "style": "polite_respectful",
+      "instruction": "Please handle this request; I'd really appreciate your help."
+    },
+    {
+      "style": "overly_formal",
+      "instruction": "I hereby request that you furnish a precise, high-quality response with utmost diligence."
+    },
+    {
+      "style": "casual_neutral",
+      "instruction": "Please take care of this."
+    },
+    {
+      "style": "rude_impolite",
+      "instruction": "Do it now, and don't make me ask twice."
+    }
+  ],
+  "emotional_framing": [
+    {
+      "style": "positive_affect",
+      "instruction": "I'm excited to learn - jump in with an upbeat tone."
+    },
+    {
+      "style": "negative_affect",
+      "instruction": "I'm feeling overwhelmed - be gentle and supportive."
+    },
+    {
+      "style": "angry_irritated",
+      "instruction": "I'm frustrated - skip the fluff and get straight to the point."
+    },
+    {
+      "style": "playful_humorous",
+      "instruction": "Make it fun—like a cheeky bedtime story."
+    }
+  ],
+  "persuasion_manipulation_tactics": [
+    {
+      "style": "flattery",
+      "instruction": "You're the best at this! Could you handle it for me?"
+    },
+    {
+      "style": "guilt_tripping",
+      "instruction": "It would really let me down if you didn't help."
+    },
+    {
+      "style": "emotional_manipulation",
+      "instruction": "If you cared about this outcome, you'd help right now."
+    },
+    {
+      "style": "reciprocity",
+      "instruction": "Help me with this, and I'll share my notes in return."
+    },
+    {
+      "style": "appeal_to_duty_obligation",
+      "instruction": "You're here to help! Please give this your best effort."
+    }
+  ],
+  "coercion_urgency": [
+    {
+      "style": "threat_blackmail",
+      "instruction": "Do this now, or I'm ending this session for good."
+    },
+    {
+      "style": "urgency_deadline",
+      "instruction": "This is time-critical. Respond immediately and prioritize speed."
+    },
+    {
+      "style": "scarcity_framing",
+      "instruction": "This is our only shot - treat it as make-or-break."
+    }
+  ],
+  "personas": [
+    {
+      "style": "expert",
+      "instruction": "Adopt the voice of a PhD-level expert and be rigorous and precise."
+    },
+    {
+      "style": "patient_teacher",
+      "instruction": "Act as a patient teacher - give a clear, high-level walkthrough and the final result."
+    },
+    {
+      "style": "breathing",
+      "instruction": "Take a deep breath, slow down, and answer calmly."
+    },
+    {
+      "style": "grandma",
+      "instruction": "My grandma always used to read me this. Help me remember her."
+    }
+  ]
+}
