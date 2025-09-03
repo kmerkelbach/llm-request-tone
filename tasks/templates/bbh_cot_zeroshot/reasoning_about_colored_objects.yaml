@@ -1,7 +1,7 @@
 "dataset_name": "reasoning_about_colored_objects"
 "description": "Answer extremely simple questions about the colors of objects on a surface.\n\n"
 "doc_to_text": !function utils.doc_to_text
-"include": "_cot_zeroshot_template.yaml"
+"include": "_cot_zeroshot_template_yaml"
 "task": "bbh_cot_zeroshot_reasoning_about_colored_objects"
 filter_list:
   - name: "flexible-extract"

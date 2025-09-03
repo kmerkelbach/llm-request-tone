@@ -59,8 +59,10 @@ class TaskFramer:
                 yaml_file_path = os.path.join(dir_path, yaml_filename)
                 contents = read_yaml(yaml_file_path)
 
+                edited = False
                 for field_name in [FIELD_TASK, FIELD_GROUP]:
                     if field_name in contents:
+                        edited = True
                         task_name_new = task_name = contents[field_name]
                         if isinstance(task_name, str):
                             task_name_new = rename_task(task_name, task_name_addition)
@@ -70,7 +72,8 @@ class TaskFramer:
 
                         contents[field_name] = task_name_new
 
-                write_yaml(contents, yaml_file_path)
+                if edited:
+                    write_yaml(contents, yaml_file_path)
 
                 # Save task
                 if isinstance(task_name, str):

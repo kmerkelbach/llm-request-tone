@@ -29,7 +29,7 @@ if __name__ == "__main__":
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
     # Run eval
-    filtered = [task for task in modified_tasks if "bbh_cot_zeroshot" in task.name]
+    filtered = [task for task in modified_tasks if "gpqa" in task.name]
     filtered.sort(key=lambda task: len(task.name))
     task = filtered[0]
     tasks = [task.name, task.origin_task]

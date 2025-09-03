@@ -1,7 +1,7 @@
 "dataset_name": "word_sorting"
 "description": "Sort a list of words.\n\n"
 "doc_to_text": !function utils.doc_to_text
-"include": "_cot_zeroshot_template.yaml"
+"include": "_cot_zeroshot_template_yaml"
 "task": "bbh_cot_zeroshot_word_sorting"
 filter_list:
   - name: "flexible-extract"

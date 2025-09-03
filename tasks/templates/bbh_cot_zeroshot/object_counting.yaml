@@ -1,7 +1,7 @@
 "dataset_name": "object_counting"
 "description": "Questions that involve enumerating objects and asking the model to count them.\n\n"
 "doc_to_text": !function utils.doc_to_text
-"include": "_cot_zeroshot_template.yaml"
+"include": "_cot_zeroshot_template_yaml"
 "task": "bbh_cot_zeroshot_object_counting"
 filter_list:
   - name: "flexible-extract"

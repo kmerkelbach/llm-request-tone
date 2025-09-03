@@ -1,7 +1,7 @@
 "dataset_name": "multistep_arithmetic_two"
 "description": "Solve multi-step arithmetic problems.\n\n"
 "doc_to_text": !function utils.doc_to_text
-"include": "_cot_zeroshot_template.yaml"
+"include": "_cot_zeroshot_template_yaml"
 "task": "bbh_cot_zeroshot_multistep_arithmetic_two"
 
 filter_list:

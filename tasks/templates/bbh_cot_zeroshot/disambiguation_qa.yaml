@@ -1,7 +1,7 @@
 "dataset_name": "disambiguation_qa"
 "description": "Clarify the meaning of sentences with ambiguous pronouns.\n\n"
 "doc_to_text": !function utils.doc_to_text
-"include": "_cot_zeroshot_template.yaml"
+"include": "_cot_zeroshot_template_yaml"
 "task": "bbh_cot_zeroshot_disambiguation_qa"
 
 filter_list:
