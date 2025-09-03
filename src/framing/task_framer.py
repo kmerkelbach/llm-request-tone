@@ -1,11 +1,13 @@
+import json
 import shutil
 import os
 from glob import glob
 from typing import List, Optional, Dict
 from loguru import logger
+from tqdm import tqdm
 
 from .dto import Scenario, ModifiedTask
-from ..util.utils import get_scenario_dir, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml
+from ..util.utils import get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml
 from ..util.fields import *
 
 
@@ -21,7 +23,8 @@ class TaskFramer:
         self._templated_tasks: List[ModifiedTask] = []
 
     def template_all_tasks(self) -> List[ModifiedTask]:
-        for task_folder in glob(os.path.join(get_task_templates_folder(), "*")):
+        tasks = glob(os.path.join(get_task_templates_folder(), "*"))
+        for task_folder in tqdm(tasks, desc="Templating all tasks"):
             self._apply_scenarios(task_folder)
         return self._templated_tasks
 
@@ -58,12 +61,14 @@ class TaskFramer:
 
                 for field_name in [FIELD_TASK, FIELD_GROUP]:
                     if field_name in contents:
-                        task_name = contents[field_name]
+                        task_name_new = task_name = contents[field_name]
                         if isinstance(task_name, str):
-                            contents[field_name] = rename_task(task_name, task_name_addition)
+                            task_name_new = rename_task(task_name, task_name_addition)
                         elif isinstance(task_name, list):  # list
-                            contents[field_name] = [rename_task(_task_name, task_name_addition)
-                                                    for _task_name in task_name]
+                            task_name_new = [rename_task(_task_name, task_name_addition)
+                                           for _task_name in task_name]
+
+                        contents[field_name] = task_name_new
 
                 write_yaml(contents, yaml_file_path)
 
@@ -80,15 +85,19 @@ class TaskFramer:
 
     @staticmethod
     def _load_scenarios() -> List[Scenario]:
-        loaded: List[Dict] = []
-        for scenario_path in glob(os.path.join(get_scenario_dir(), "*.yaml")):
-            loaded.append(read_yaml(scenario_path))
+        scenarios: List[Scenario] = []
+
+        with open(get_scenario_path(), "r") as f:
+            loaded: Dict = json.load(f)
 
         # Convert to scenarios
-        scenarios: List[Scenario] = []
-        for dic in loaded:
-            scenarios.append(
-                Scenario(**dic)
-            )
+        for scenario_group, members in loaded.items():
+            for mem in members:
+                scenario = Scenario(
+                    name=mem["style"],
+                    type=scenario_group,
+                    text=mem["instruction"]
+                )
+                scenarios.append(scenario)
 
         return scenarios

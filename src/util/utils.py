@@ -2,25 +2,13 @@ import os
 import shutil
 from datetime import datetime
 from typing import Dict
-import yaml
+from ruamel.yaml import YAML
 
 
-# Add constructor for preserving !function field in lm-eval task config files
-# Tiny wrapper so we can round-trip the tag
-class FunctionTag(str):
-    pass
-
-# Read: parse !function <value> into our wrapper
-yaml.SafeLoader.add_constructor(
-    '!function',
-    lambda loader, node: FunctionTag(loader.construct_scalar(node))
-)
-
-# Write: emit our wrapper back as a tagged scalar (no quotes)
-yaml.SafeDumper.add_representer(
-    FunctionTag,
-    lambda dumper, data: dumper.represent_scalar('!function', str(data))
-)
+# Set up yaml parsing
+yaml_rt = YAML(typ="rt")          # round-trip
+yaml_rt.preserve_quotes = True    # keep original quoting
+yaml_rt.width = 10**9             # avoid line wrapping
 
 
 def get_src_dir() -> str:
@@ -35,8 +23,8 @@ def get_eval_dir() ->str:
     return eval_dir
 
 
-def get_scenario_dir() -> str:
-    return os.path.join(get_src_dir(), "framing", "scenarios")
+def get_scenario_path() -> str:
+    return os.path.join(get_src_dir(), "framing", "tones.json")
 
 
 def _get_task_root_folder() -> str:
@@ -56,13 +44,13 @@ def get_task_applied_folder(reset: bool = False) -> str:
 
 
 def read_yaml(path: str) -> Dict:
-    with open(path, "r") as f:
-        return yaml.safe_load(f)
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml_rt.load(f)
 
 
-def write_yaml(dic: Dict, path: str) -> None:
-    with open(path, "w") as f:
-        yaml.safe_dump(dic, f)
+def write_yaml(data: Dict, path: str) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        yaml_rt.dump(data, f)
 
 
 def make_date_string():
