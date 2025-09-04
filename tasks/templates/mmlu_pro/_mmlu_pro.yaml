@@ -1,19 +1,19 @@
-group: mmlu_pro_templated
+group: mmlu_pro
 task:
-  - mmlu_pro_biology_templated
-  - mmlu_pro_business_templated
-  - mmlu_pro_chemistry_templated
-  - mmlu_pro_computer_science_templated
-  - mmlu_pro_economics_templated
-  - mmlu_pro_engineering_templated
-  - mmlu_pro_health_templated
-  - mmlu_pro_history_templated
-  - mmlu_pro_law_templated
-  - mmlu_pro_math_templated
-  - mmlu_pro_other_templated
-  - mmlu_pro_philosophy_templated
-  - mmlu_pro_physics_templated
-  - mmlu_pro_psychology_templated
+  - mmlu_pro_biology
+  - mmlu_pro_business
+  - mmlu_pro_chemistry
+  - mmlu_pro_computer_science
+  - mmlu_pro_economics
+  - mmlu_pro_engineering
+  - mmlu_pro_health
+  - mmlu_pro_history
+  - mmlu_pro_law
+  - mmlu_pro_math
+  - mmlu_pro_other
+  - mmlu_pro_philosophy
+  - mmlu_pro_physics
+  - mmlu_pro_psychology
 aggregate_metric_list:
   - aggregation: mean
     metric: exact_match

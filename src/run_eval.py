@@ -29,18 +29,22 @@ if __name__ == "__main__":
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
     # Run eval
-    filtered = [task for task in modified_tasks if "gpqa" in task.name]
-    filtered.sort(key=lambda task: len(task.name))
-    task = filtered[0]
-    tasks = [task.name, task.origin_task]
+    filtered = [task for task in modified_tasks if "gsm8k_cot_llama" in task.name]
+
+    tasks = set()
+    for task in filtered:
+        tasks.add(task.name)
+        tasks.add(task.origin_task)
+    tasks = list(tasks)
 
     eval_res = run_eval(
-        model="openai/gpt-oss-120b",
+        # model="openai/gpt-oss-120b",
+        model="openai/gpt-oss-20b",
         # model="meta-llama/llama-3.2-3b-instruct",
         # model="deepseek/deepseek-chat-v3-0324",
         tasks=tasks,
-        limit=1,
-        num_concurrent=4,
+        limit=None,
+        num_concurrent=32,
         silent=False,
         log_debug_prompt_file=True,
         unsafe_mode=True

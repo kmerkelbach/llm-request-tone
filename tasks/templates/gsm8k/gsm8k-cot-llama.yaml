@@ -80,5 +80,5 @@ metric_list:
 num_fewshot: 8
 output_type: generate_until
 repeats: 1
-task: gsm8k_cot_llama_templated
+task: gsm8k_cot_llama
 test_split: test
