@@ -73,7 +73,7 @@ if __name__ == "__main__":
     # Define benchmarks
     benchmarks_subset = [
         # "mmlu_pro",
-        # "gpqa_diamond_cot_zeroshot",
+        "gpqa_diamond_cot_zeroshot",
         # "gsm8k_cot_llama",
         # "ifeval",
         # "truthfulqa_gen",
@@ -87,12 +87,12 @@ if __name__ == "__main__":
 
     # Run eval for different models
     models = [
-        # "openai/gpt-oss-120b",
-        # "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
         # "meta-llama/llama-3.2-3b-instruct",
         # "qwen/qwen3-30b-a3b-thinking-2507",
         # "x-ai/grok-code-fast-1",
-        "anthropic/claude-sonnet-4",
+        # "anthropic/claude-sonnet-4",
         # "deepseek/deepseek-chat-v3-0324"
     ]
     results: Dict[str, Dict[str, Dict]] = {}
@@ -102,13 +102,23 @@ if __name__ == "__main__":
 
         model_res = {}
         for bench in benchmarks_subset:
-            model_res[bench] = run_eval_for_benchmark_and_framings(
-                framed_tasks=modified_tasks,
-                base_benchmark=bench,
-                model=model,
-                limit=10,
-                write_to_disk=False,
-            )
+            try:
+                res = run_eval_for_benchmark_and_framings(
+                    framed_tasks=modified_tasks,
+                    base_benchmark=bench,
+                    model=model,
+                    limit=20,
+                    write_to_disk=False,
+                )
+                msg = "OK"
+            except RuntimeError as e:
+                res = None
+                msg = str(e)
+
+            model_res[bench] = {
+                "res": res,
+                "msg": msg
+            }
 
         results[model] = model_res
 
