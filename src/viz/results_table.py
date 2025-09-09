@@ -21,7 +21,14 @@ class TableMaker:
         # - model
         # - benchmark
         # - scenario
-        result_df = self._make_results_table(results=result_set)
+        self.results_df = self._make_results_table(results=result_set)
+
+        # Make different aggregations of the table
+        self._aggregate_table()
+
+    def _aggregate_table(self):
+        # Alias for table - makes lines shorter
+        df = self.results_df
 
     @staticmethod
     def _parse_results_file(eval_path: str) -> List[EvalResult]:
@@ -70,6 +77,10 @@ class TableMaker:
 
                 if benchmark_variation == "":
                     benchmark_variation = TASK_BASE
+                else:
+                    if benchmark_variation.startswith(TEMPLATED_STR):
+                        benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
+                    benchmark_variation = benchmark_variation.strip("_")
 
                 metric = self._pick_metric(results_dict)
                 val = results_dict[metric]

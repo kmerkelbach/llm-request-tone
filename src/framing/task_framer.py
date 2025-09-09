@@ -34,7 +34,7 @@ class TaskFramer:
 
     def _apply_scenario_to_task(self, task_folder: str, scenario: Scenario):
         # Copy task template to applied dir
-        task_name_addition = f"_templated_{scenario.name}"
+        task_name_addition = f"{TEMPLATED_STR}_{scenario.name}"
         origin_task = os.path.basename(task_folder)
         dst_task_name = origin_task + task_name_addition
         dst_task_path = os.path.join(self._applied_tasks_dir, dst_task_name)
@@ -46,7 +46,7 @@ class TaskFramer:
             f.write(scenario.text)
 
         def rename_task(task_name, task_name_addition):
-            task_name = task_name.replace("_templated", "")
+            task_name = task_name.replace(TEMPLATED_STR, "")
             return task_name + task_name_addition
 
         # Change task name within task yaml files
