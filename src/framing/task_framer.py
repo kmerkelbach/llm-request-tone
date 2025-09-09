@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 from .dto import Scenario, ModifiedTask
 from ..util.utils import get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml
-from ..util.fields import *
+from ..util.constants import *
 
 
 class TaskFramer:
