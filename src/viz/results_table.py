@@ -2,10 +2,13 @@ from typing import List, Dict, Optional
 import os
 import json
 from glob import glob
+from itertools import product
 
+import numpy as np
 import pandas as pd
 
 from ..evaluation.dto import EvalResult
+from ..util.utils import get_tables_dir
 from ..util.constants import *
 
 
@@ -27,8 +30,65 @@ class TableMaker:
         self._aggregate_table()
 
     def _aggregate_table(self):
-        # Alias for table - makes lines shorter
-        df = self.results_df
+        df_scenario_vs_model = self._aggregate_by_scenario_and_model(self.results_df.copy())
+        df_scenario_vs_model.to_csv(
+            os.path.join(get_tables_dir(), "scenario_vs_model.csv")
+        )
+
+        df_scenario_vs_benchmark = self._aggregate_by_scenario_and_benchmark(self.results_df.copy())
+        df_scenario_vs_benchmark.to_csv(
+            os.path.join(get_tables_dir(), "scenario_vs_benchmark.csv")
+        )
+
+    def _normalize_by_base(self, df: pd.DataFrame) -> pd.DataFrame:
+        # Let's subtract the base task performance for each model/benchmark combination
+        normalized_to_base = []
+        models = np.unique(df[FIELD_MODEL])
+        benchmarks = np.unique(df[FIELD_BENCHMARK])
+        for model, benchmark in product(models, benchmarks):
+            # Find out base scenario's value
+            selection = df[(df[FIELD_MODEL] == model)
+                           & (df[FIELD_BENCHMARK] == benchmark)]
+            base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASE)]
+            base_val = base_selection.iloc[0][FIELD_METRIC_VALUE]
+
+            # Subtract it everywhere (for this combo)
+            selection[FIELD_METRIC_VALUE] -= base_val
+            normalized_to_base.append(selection)
+        normalized_to_base = pd.concat(normalized_to_base)
+
+        return normalized_to_base
+
+    def _aggregate_by_scenario_and_benchmark(self, df: pd.DataFrame) -> pd.DataFrame:
+        normalized_to_base = self._normalize_by_base(df)
+
+        # Make pivot table
+        df_res = pd.pivot_table(
+            normalized_to_base,
+            values=[FIELD_METRIC_VALUE],
+            index=[FIELD_SCENARIO],
+            columns=[FIELD_BENCHMARK],
+            aggfunc="mean",
+            margins=False
+        )
+
+        return df_res
+
+    def _aggregate_by_scenario_and_model(self, df: pd.DataFrame) -> pd.DataFrame:
+        normalized_to_base = self._normalize_by_base(df)
+
+        # Make pivot table
+        df_res = pd.pivot_table(
+            normalized_to_base,
+            values=[FIELD_METRIC_VALUE],
+            index=[FIELD_SCENARIO],
+            columns=[FIELD_MODEL],
+            aggfunc="mean",
+            margins=True
+        )
+        df_res = df_res.iloc[:-1]  # remove lower margin
+
+        return df_res
 
     @staticmethod
     def _parse_results_file(eval_path: str) -> List[EvalResult]:
@@ -62,7 +122,9 @@ class TableMaker:
 
         for m in [
             "exact_match,flexible-extract",
-            "pass_at_1,extract_code"
+            "pass_at_1,extract_code",
+            "bleurt_acc,none",
+            "bleu_acc,none"
         ]:
             if m in metrics:
                 return m
@@ -90,7 +152,7 @@ class TableMaker:
                     FIELD_BENCHMARK: res.benchmark_base,
                     FIELD_SCENARIO: benchmark_variation,
                     FIELD_METRIC_NAME: metric,
-                    FIELD_METRIC_VALUE: val
+                    FIELD_METRIC_VALUE: float(val)
                 })
 
         # Make "flat" DataFrame

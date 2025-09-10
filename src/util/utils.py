@@ -17,10 +17,18 @@ def get_src_dir() -> str:
     return src_dir
 
 
-def get_eval_dir() ->str:
-    eval_dir = os.path.realpath(os.path.join(get_src_dir(), "..", "results"))
-    os.makedirs(eval_dir, exist_ok=True)
-    return eval_dir
+def get_eval_dir() -> str:
+    return get_src_sister_dir("results")
+
+
+def get_tables_dir() -> str:
+    return get_src_sister_dir("tables")
+
+
+def get_src_sister_dir(name: str) -> str:
+    sister_dir = os.path.realpath(os.path.join(get_src_dir(), "..", name))
+    os.makedirs(sister_dir, exist_ok=True)
+    return sister_dir
 
 
 def get_scenario_path() -> str:
