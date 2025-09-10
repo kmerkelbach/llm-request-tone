@@ -74,11 +74,11 @@ if __name__ == "__main__":
     benchmarks_subset = [
         # "mmlu_pro",
         "gpqa_diamond_cot_zeroshot",
-        # "gsm8k_cot_llama",
+        "gsm8k_cot_llama",
         # "ifeval",
-        # "truthfulqa_gen",
+        "truthfulqa_gen",
         # "humaneval_instruct",
-        "mbpp_plus_instruct",
+        # "mbpp_plus_instruct",
         # "bbh_cot_zeroshot"
     ]
 
@@ -87,10 +87,10 @@ if __name__ == "__main__":
 
     # Run eval for different models
     models = [
-        "openai/gpt-oss-120b",
+        # "openai/gpt-oss-120b",
         "openai/gpt-oss-20b",
         # "meta-llama/llama-3.2-3b-instruct",
-        # "qwen/qwen3-30b-a3b-thinking-2507",
+        "qwen/qwen3-30b-a3b-thinking-2507",
         # "x-ai/grok-code-fast-1",
         # "anthropic/claude-sonnet-4",
         # "deepseek/deepseek-chat-v3-0324"
