@@ -4,7 +4,7 @@ dataset_path: evalplus/mbppplus
 dataset_name: null
 doc_to_text: !function utils.doc_to_text_plus_instruct
 doc_to_target: "{{test_list[0]}}"
-gen_prefix: "Here is a solution to this programming problem:\n```python\n"
+gen_prefix: ""
 num_fewshot: 0
 generation_kwargs:
   max_gen_toks: 1024

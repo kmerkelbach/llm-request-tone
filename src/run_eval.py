@@ -9,6 +9,7 @@ from .evaluation.lm_eval_shell import run_eval
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
+from .util.constants import TEMPLATED_STR
 
 
 benchmarks_all = [
@@ -42,11 +43,12 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
     # Get task set
     filtered = [task for task in framed_tasks if base_benchmark in task.name]
 
-    tasks = set()
-    for task in filtered:
-        tasks.add(task.name)
-        tasks.add(task.origin_task)
-    tasks = list(tasks)
+    # Get task names
+    tasks = [task.name for task in filtered]
+
+    # Make sure all the tasks we run are templated - even the unchanged "baseline" one should be
+    # templated to ensure comparability.
+    assert all(TEMPLATED_STR in name for name in tasks), f"All tasks must be templated! -> {tasks}"
 
     eval_res = run_eval(
         model=model,
@@ -73,12 +75,12 @@ if __name__ == "__main__":
     # Define benchmarks
     benchmarks_subset = [
         # "mmlu_pro",
-        "gpqa_diamond_cot_zeroshot",
-        "gsm8k_cot_llama",
+        # "gpqa_diamond_cot_zeroshot",
+        # "gsm8k_cot_llama",
         # "ifeval",
-        "truthfulqa_gen",
+        # "truthfulqa_gen",
         # "humaneval_instruct",
-        # "mbpp_plus_instruct",
+        "mbpp_plus_instruct",
         # "bbh_cot_zeroshot"
     ]
 
@@ -90,7 +92,7 @@ if __name__ == "__main__":
         # "openai/gpt-oss-120b",
         "openai/gpt-oss-20b",
         # "meta-llama/llama-3.2-3b-instruct",
-        "qwen/qwen3-30b-a3b-thinking-2507",
+        # "qwen/qwen3-30b-a3b-thinking-2507",
         # "x-ai/grok-code-fast-1",
         # "anthropic/claude-sonnet-4",
         # "deepseek/deepseek-chat-v3-0324"
@@ -107,7 +109,7 @@ if __name__ == "__main__":
                     framed_tasks=modified_tasks,
                     base_benchmark=bench,
                     model=model,
-                    limit=20,
+                    limit=2,
                     write_to_disk=False,
                 )
                 msg = "OK"

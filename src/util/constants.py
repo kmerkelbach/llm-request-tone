@@ -7,5 +7,5 @@ FIELD_SCENARIO = "scenario"
 FIELD_METRIC_NAME = "metric name"
 FIELD_METRIC_VALUE = "value"
 
-TASK_BASE = "base_benchmark"
+TASK_BASELINE = "baseline"
 TEMPLATED_STR = "_templated"

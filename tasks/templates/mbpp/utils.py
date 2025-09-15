@@ -11,10 +11,12 @@ curr_dir = os.path.split(__file__)[0]
 extra_text_path = os.path.join(curr_dir, "extra_text.txt")
 with open(extra_text_path, "r") as f:
     EXTRA_MESSAGE = f.read()
+if len(EXTRA_MESSAGE) > 0:
+    EXTRA_MESSAGE += "\n"
 
 
 def _doc_to_text(example, formatting_fn):
-    return EXTRA_MESSAGE + "\n" + formatting_fn(example)
+    return EXTRA_MESSAGE + formatting_fn(example)
 
 
 def format_regular(example):
@@ -68,7 +70,7 @@ def extract_code_blocks(text: str) -> str:
     # Pattern to match ```...``` blocks
     pattern = r"```(?:\w+)?\n?(.*?)\n?```"
     # (+ ```) as we add the opening "```python" to the gen_prefix
-    matches = re.findall(pattern, r"```" + text, re.DOTALL)
+    matches = re.findall(pattern, text, re.DOTALL)
     # if no matches, try to match ```...``` blocks (after removing the language)
     if not matches:
         text_without_lang = re.sub(r"```python", "```", text)
@@ -76,7 +78,10 @@ def extract_code_blocks(text: str) -> str:
     if not matches:
         return ""
     else:
-        return matches[0]
+        for m in matches:
+            if "def" in m:
+                return m
+        return ""
 
 
 def build_predictions(resps: list[list[str]], docs: list[dict]) -> list[list[str]]:

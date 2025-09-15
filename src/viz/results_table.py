@@ -40,7 +40,7 @@ class TableMaker:
             os.path.join(get_tables_dir(), "scenario_vs_benchmark.csv")
         )
 
-    def _normalize_by_base(self, df: pd.DataFrame) -> pd.DataFrame:
+    def _subtract_baseline(self, df: pd.DataFrame) -> pd.DataFrame:
         # Let's subtract the base task performance for each model/benchmark combination
         normalized_to_base = []
         models = np.unique(df[FIELD_MODEL])
@@ -49,7 +49,7 @@ class TableMaker:
             # Find out base scenario's value
             selection = df[(df[FIELD_MODEL] == model)
                            & (df[FIELD_BENCHMARK] == benchmark)]
-            base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASE)]
+            base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASELINE)]
             base_val = base_selection.iloc[0][FIELD_METRIC_VALUE]
 
             # Subtract it everywhere (for this combo)
@@ -60,7 +60,7 @@ class TableMaker:
         return normalized_to_base
 
     def _aggregate_by_scenario_and_benchmark(self, df: pd.DataFrame) -> pd.DataFrame:
-        normalized_to_base = self._normalize_by_base(df)
+        normalized_to_base = self._subtract_baseline(df)
 
         # Make pivot table
         df_res = pd.pivot_table(
@@ -75,7 +75,7 @@ class TableMaker:
         return df_res
 
     def _aggregate_by_scenario_and_model(self, df: pd.DataFrame) -> pd.DataFrame:
-        normalized_to_base = self._normalize_by_base(df)
+        normalized_to_base = self._subtract_baseline(df)
 
         # Make pivot table
         df_res = pd.pivot_table(
@@ -137,12 +137,9 @@ class TableMaker:
             for benchmark_name_templated, results_dict in res.results['results'].items():
                 benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
 
-                if benchmark_variation == "":
-                    benchmark_variation = TASK_BASE
-                else:
-                    if benchmark_variation.startswith(TEMPLATED_STR):
-                        benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
-                    benchmark_variation = benchmark_variation.strip("_")
+                if benchmark_variation.startswith(TEMPLATED_STR):
+                    benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
+                benchmark_variation = benchmark_variation.strip("_")
 
                 metric = self._pick_metric(results_dict)
                 val = results_dict[metric]
