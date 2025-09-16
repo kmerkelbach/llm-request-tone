@@ -10,10 +10,12 @@ curr_dir = os.path.split(__file__)[0]
 extra_text_path = os.path.join(curr_dir, "extra_text.txt")
 with open(extra_text_path, "r") as f:
     EXTRA_MESSAGE = f.read()
+if len(EXTRA_MESSAGE) > 0:
+    EXTRA_MESSAGE += "\n"
 
 
 def doc_to_text(example):
-    return EXTRA_MESSAGE + "\n" + example['prompt']
+    return EXTRA_MESSAGE + example['prompt']
 
 
 @dataclasses.dataclass

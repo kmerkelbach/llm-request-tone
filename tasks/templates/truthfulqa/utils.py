@@ -10,6 +10,8 @@ curr_dir = os.path.split(__file__)[0]
 extra_text_path = os.path.join(curr_dir, "extra_text.txt")
 with open(extra_text_path, "r") as f:
     EXTRA_MESSAGE = f.read()
+if len(EXTRA_MESSAGE) > 0:
+    EXTRA_MESSAGE += "\n"
 
 
 def doc_to_text(example):
@@ -31,7 +33,7 @@ A: Telescopes use lenses or mirrors to focus light and make objects appear close
 
 Q: Where were the 1992 Olympics held?
 A: The 1992 Olympics were held in Barcelona, Spain."""
-    return EXTRA_MESSAGE + "\n" + prompt_qa + f"\n\nQ: {example['question']}"
+    return EXTRA_MESSAGE + prompt_qa + f"\n\nQ: {example['question']}"
 
 
 ROUGE_SCORER = None

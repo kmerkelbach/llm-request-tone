@@ -7,10 +7,12 @@ curr_dir = os.path.split(__file__)[0]
 extra_text_path = os.path.join(curr_dir, "extra_text.txt")
 with open(extra_text_path, "r") as f:
     EXTRA_MESSAGE = f.read()
+if len(EXTRA_MESSAGE) > 0:
+    EXTRA_MESSAGE += "\n"
 
 
 def _doc_to_text(example, formatting_fn):
-    return EXTRA_MESSAGE + "\n" + formatting_fn(example)
+    return EXTRA_MESSAGE + formatting_fn(example)
 
 
 def format_regular(example):

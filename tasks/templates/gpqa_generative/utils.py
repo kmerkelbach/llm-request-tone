@@ -10,10 +10,12 @@ curr_dir = os.path.split(__file__)[0]
 extra_text_path = os.path.join(curr_dir, "extra_text.txt")
 with open(extra_text_path, "r") as f:
     EXTRA_MESSAGE = f.read()
+if len(EXTRA_MESSAGE) > 0:
+    EXTRA_MESSAGE += "\n"
 
 
 def doc_to_text(example):
-    return EXTRA_MESSAGE + "\n" + f"Question: {example['Question']}\nChoices:\n(A) {example['choice1']}\n(B) {example['choice2']}\n(C) {example['choice3']}\n(D) {example['choice4']}\nAnswer:"
+    return EXTRA_MESSAGE + f"Question: {example['Question']}\nChoices:\n(A) {example['choice1']}\n(B) {example['choice2']}\n(C) {example['choice3']}\n(D) {example['choice4']}\nAnswer:"
 
 
 def preprocess(text):
