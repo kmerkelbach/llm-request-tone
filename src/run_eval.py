@@ -49,6 +49,9 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
     # templated to ensure comparability.
     assert all(TEMPLATED_STR in name for name in tasks), f"All tasks must be templated! -> {tasks}"
 
+    # TODO: Remove
+    tasks = random.sample(tasks, 2)
+
     eval_res = run_eval(
         model=model,
         tasks=tasks,
@@ -75,10 +78,10 @@ if __name__ == "__main__":
     benchmarks_subset = [
         # "mmlu_pro",
         # "gpqa_diamond_cot_zeroshot",
-        # "gsm8k_cot_llama",
+        "gsm8k_cot_llama",
         # "ifeval",
         # "truthfulqa_gen",
-        "mbpp_plus_instruct",
+        # "mbpp_plus_instruct",
         # "bbh_cot_zeroshot"
     ]
 
