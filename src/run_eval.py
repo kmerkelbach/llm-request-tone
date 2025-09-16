@@ -18,7 +18,6 @@ benchmarks_all = [
     "gsm8k_cot_llama",
     "ifeval",
     "truthfulqa_gen",
-    "humaneval_instruct",
     "mbpp_plus_instruct",
     "bbh_cot_zeroshot"
 ]
@@ -79,7 +78,6 @@ if __name__ == "__main__":
         # "gsm8k_cot_llama",
         # "ifeval",
         # "truthfulqa_gen",
-        # "humaneval_instruct",
         "mbpp_plus_instruct",
         # "bbh_cot_zeroshot"
     ]
