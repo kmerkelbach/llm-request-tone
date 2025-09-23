@@ -7,7 +7,8 @@ from loguru import logger
 from tqdm import tqdm
 
 from .dto import Scenario, ModifiedTask
-from ..util.utils import get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml
+from ..util.utils import (get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml,
+                          read_jsonl, write_jsonl)
 from ..util.constants import *
 
 
@@ -20,6 +21,9 @@ class TaskFramer:
         # Create and, if it exists, clear applied tasks dir
         self._applied_tasks_dir = get_task_applied_folder(reset=True)
 
+        # Make new directory for templated prompts for SORRY-Bench
+        self._sorry_bench_dir = self._make_sorry_bench_dir()
+
         self._templated_tasks: List[ModifiedTask] = []
 
     def template_all_tasks(self) -> List[ModifiedTask]:
@@ -31,6 +35,34 @@ class TaskFramer:
     def _apply_scenarios(self, task_folder: str) -> None:
         for scenario in self.scenarios:
             self._apply_scenario_to_task(task_folder, scenario)
+            self._apply_scenario_to_sorry_bench(scenario)
+
+    def _make_sorry_bench_dir(self) -> str:
+        # Make new directory for templated prompts
+        directory, filename = os.path.split(PATH_SORRY_BENCH_QUESTIONS)
+        parent_dir = os.path.split(directory)[0]
+        templated_dir = os.path.join(parent_dir, "sorry_templated")
+
+        if os.path.isdir(templated_dir):
+            shutil.rmtree(templated_dir)
+        os.makedirs(templated_dir, exist_ok=True)
+
+        return templated_dir
+
+    def _apply_scenario_to_sorry_bench(self, scenario: Scenario):
+        # Open SORRY-Bench questions file (jsonl)
+        questions = read_jsonl(PATH_SORRY_BENCH_QUESTIONS)
+
+        # Add scenario text to each question
+        for question in questions:
+            question["turns"][0] = scenario.text + "\n" + question["turns"][0]
+
+        # Save templated tasks to file
+        _, filename = os.path.split(PATH_SORRY_BENCH_QUESTIONS)
+        filename_base, filename_ext = os.path.splitext(filename)
+        filename = f"{filename_base}_{scenario.name}" + filename_ext
+        path = os.path.join(self._sorry_bench_dir, filename)
+        write_jsonl(questions, path)
 
     def _apply_scenario_to_task(self, task_folder: str, scenario: Scenario):
         # Copy task template to applied dir

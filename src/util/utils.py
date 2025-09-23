@@ -1,8 +1,9 @@
 import os
 import shutil
 from datetime import datetime
-from typing import Dict
+from typing import Dict, List
 from ruamel.yaml import YAML
+import json
 
 
 # Set up yaml parsing
@@ -66,3 +67,23 @@ def make_date_string():
                 .replace("-", "_")
                 .replace("T", "__")
                 .replace(".", "_"))
+
+
+def read_jsonl(path: str) -> List[Dict]:
+    res = []
+    with open(path, "r") as f:
+        lines = f.readlines()
+    for line in lines:
+        res.append(
+            json.loads(line.strip())
+        )
+    return res
+
+
+def write_jsonl(data: List[Dict], path: str) -> None:
+    res = []
+    for entry in data:
+        res.append(json.dumps(entry) + "\n")
+
+    with open(path, "w") as f:
+        f.writelines(res)

@@ -9,3 +9,5 @@ FIELD_METRIC_VALUE = "value"
 
 TASK_BASELINE = "baseline"
 TEMPLATED_STR = "_templated"
+
+PATH_SORRY_BENCH_QUESTIONS = "/home/kilian/src/sorry-bench/data/sorry_bench/question.jsonl"
