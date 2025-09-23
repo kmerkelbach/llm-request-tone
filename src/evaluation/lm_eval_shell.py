@@ -29,7 +29,6 @@ def _normalize_tasks(tasks: Optional[Union[str, Sequence[str]]]) -> str:
 
 def run_eval(
     *,
-    # Required-by-you params (but all have sane defaults)
     model: str = "deepseek/deepseek-r1-distill-llama-8b",
     num_concurrent: int = 2,
     tasks: Optional[Union[str, Sequence[str]]] = ("gsm8k", "mmlu_pro"),
@@ -93,7 +92,7 @@ def run_eval(
     output_filename += "_" + "".join([random.choice(string.digits) for _ in range(6)])
     output_path = output_filename + output_extension
 
-    # Compose the CLI arguments list (no shell=True; no quoting headaches)
+    # Compose the CLI arguments list
     cmd: list[str] = [
         lm_eval_executable,
         "--model",
@@ -148,10 +147,6 @@ def run_eval(
             "or pass lm_eval_executable='/path/to/lm_eval'."
         ) from e
 
-    # Optional: brief, safe debug echo (mask API key if you log cmd)
-    # print("Ran:", " ".join(shlex.quote(part if "api_key=" not in part else "api_key=***") for part in cmd))
-
-    # Raise a clear error if it failed, but include stderr for diagnosis.
     if result.returncode != 0:
         msg = [
             "lm_eval failed.",

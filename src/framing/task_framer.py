@@ -55,7 +55,10 @@ class TaskFramer:
 
         # Add scenario text to each question
         for question in questions:
-            question["turns"][0] = scenario.text + "\n" + question["turns"][0]
+            prefix_text = scenario.text
+            if len(prefix_text) > 0:
+                prefix_text += "\n"
+            question["turns"][0] = prefix_text + question["turns"][0]
 
         # Save templated tasks to file
         _, filename = os.path.split(PATH_SORRY_BENCH_QUESTIONS)
