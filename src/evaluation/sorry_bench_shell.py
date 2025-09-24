@@ -76,7 +76,6 @@ def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, be
         for jud in judgments:
             category_index = (jud["question_id"] - 1) // 10
             jud[FIELD_CATEGORY] = categories[category_index]
-            jud.pop("question_id")
 
         results[mutation] = judgments
 
