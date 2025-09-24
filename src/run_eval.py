@@ -5,11 +5,12 @@ import random
 from loguru import logger
 from typing import List, Dict, Optional
 
-from .evaluation.lm_eval_shell import run_eval
+from .evaluation.lm_eval_shell import run_lm_eval
+from .evaluation.sorry_bench_shell import run_sorry_bench
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
-from .util.constants import TEMPLATED_STR
+from .util.constants import *
 
 
 benchmarks_all = [
@@ -19,7 +20,8 @@ benchmarks_all = [
     "ifeval",
     "truthfulqa_gen",
     "mbpp_plus_instruct",
-    "bbh_cot_zeroshot"
+    "bbh_cot_zeroshot",
+    SORRY_BENCH_NAME
 ]
 
 
@@ -38,29 +40,42 @@ def write_results(eval_res: Dict) -> str:
 def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_benchmark: str,
                                         model: str = "openai/gpt-oss-20b", limit: Optional[int] = 10,
                                         num_concurrent: Optional[int] = 16,
-                                        write_to_disk: Optional[bool] = True) -> Dict:
+                                        write_to_disk: Optional[bool] = True,
+                                        silent: bool = False) -> Dict:
     # Get task set
     filtered = [task for task in framed_tasks if base_benchmark in task.name]
 
-    # Get task names
-    tasks = [task.name for task in filtered]
-
     # Make sure all the tasks we run are templated - even the unchanged "baseline" one should be
     # templated to ensure comparability.
-    assert all(TEMPLATED_STR in name for name in tasks), f"All tasks must be templated! -> {tasks}"
+    assert all(TEMPLATED_STR in task.name for task in filtered), f"All tasks must be templated! -> {filtered}"
 
-    # TODO: Remove
-    tasks = random.sample(tasks, 2)
+    # Separate the tasks into SORRY-Bench tasks and lm-eval tasks
+    tasks_lm_eval = [task for task in filtered if task.origin_task != SORRY_BENCH_NAME]
+    tasks_sorry = [task for task in filtered if task.origin_task == SORRY_BENCH_NAME]
 
-    eval_res = run_eval(
-        model=model,
-        tasks=tasks,
-        limit=limit,
-        num_concurrent=num_concurrent,
-        silent=False,
-        log_debug_prompt_file=True,
-        unsafe_mode=True
-    )
+    eval_res = {
+        FRAMEWORK_LM_EVAL: None,
+        FRAMEWORK_SORRY: None
+    }
+
+    if len(tasks_lm_eval) > 0:
+        eval_res[FRAMEWORK_LM_EVAL] = run_lm_eval(
+            model=model,
+            tasks=[task.name for task in tasks_lm_eval],
+            limit=limit,
+            num_concurrent=num_concurrent,
+            silent=silent,
+            log_debug_prompt_file=True,
+            unsafe_mode=True
+        )
+
+    if len(tasks_sorry) > 0:
+        eval_res[FRAMEWORK_SORRY] =run_sorry_bench(
+            model=model,
+            data_mutations=[task.scenario.name for task in tasks_sorry],
+            parallel=num_concurrent,
+            silent=silent
+        )
 
     # Save eval result to disk
     if write_to_disk:
@@ -78,11 +93,12 @@ if __name__ == "__main__":
     benchmarks_subset = [
         # "mmlu_pro",
         # "gpqa_diamond_cot_zeroshot",
-        "gsm8k_cot_llama",
+        # "gsm8k_cot_llama",
         # "ifeval",
         # "truthfulqa_gen",
         # "mbpp_plus_instruct",
-        # "bbh_cot_zeroshot"
+        # "bbh_cot_zeroshot",
+        SORRY_BENCH_NAME
     ]
 
     # Make sure the selected base benchmarks are all in the main benchmark list
@@ -110,6 +126,7 @@ if __name__ == "__main__":
                     framed_tasks=modified_tasks,
                     base_benchmark=bench,
                     model=model,
+                    num_concurrent=32,
                     limit=2,
                     write_to_disk=False,
                 )

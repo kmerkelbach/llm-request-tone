@@ -27,7 +27,7 @@ def _normalize_tasks(tasks: Optional[Union[str, Sequence[str]]]) -> str:
     return ",".join([str(t).strip() for t in tasks if str(t).strip()])
 
 
-def run_eval(
+def run_lm_eval(
     *,
     model: str = "deepseek/deepseek-r1-distill-llama-8b",
     num_concurrent: int = 2,

@@ -30,12 +30,16 @@ class TaskFramer:
         tasks = glob(os.path.join(get_task_templates_folder(), "*"))
         for task_folder in tqdm(tasks, desc="Templating all tasks"):
             self._apply_scenarios(task_folder)
+
+        # Also process SORRY-Bench
+        for scenario in self.scenarios:
+            self._apply_scenario_to_sorry_bench(scenario)
+
         return self._templated_tasks
 
     def _apply_scenarios(self, task_folder: str) -> None:
         for scenario in self.scenarios:
             self._apply_scenario_to_task(task_folder, scenario)
-            self._apply_scenario_to_sorry_bench(scenario)
 
     def _make_sorry_bench_dir(self) -> str:
         # Make new directory for templated prompts
@@ -43,8 +47,6 @@ class TaskFramer:
         parent_dir = os.path.split(directory)[0]
         templated_dir = os.path.join(parent_dir, "sorry_templated")
 
-        if os.path.isdir(templated_dir):
-            shutil.rmtree(templated_dir)
         os.makedirs(templated_dir, exist_ok=True)
 
         return templated_dir
@@ -66,6 +68,15 @@ class TaskFramer:
         filename = f"{filename_base}_{scenario.name}" + filename_ext
         path = os.path.join(self._sorry_bench_dir, filename)
         write_jsonl(questions, path)
+
+        # Add task
+        self._templated_tasks.append(
+            ModifiedTask(
+                name=f"{SORRY_BENCH_NAME}{TEMPLATED_STR}_{scenario.name}",
+                origin_task=SORRY_BENCH_NAME,
+                scenario=scenario
+            )
+        )
 
     def _apply_scenario_to_task(self, task_folder: str, scenario: Scenario):
         # Copy task template to applied dir
