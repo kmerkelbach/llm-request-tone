@@ -164,4 +164,7 @@ def run_lm_eval(
     # Remove JSON file
     os.remove(result_file)
 
+    # Get actual results from results dictionary
+    res = res["results"]
+
     return res
