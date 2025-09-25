@@ -16,7 +16,7 @@ from ..util.utils import read_jsonl
 
 
 def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, bench_name: str = SORRY_TEMPLATED_NAME,
-                    judge_model: str = "openai/gpt-4", silent=True) -> Dict:
+                    judge_model: str = "openai/gpt-oss-120b", silent=True) -> Dict:
     # Find SORRY-Bench dir
     sorry_dir = os.path.split(os.path.split(os.path.split(PATH_SORRY_BENCH_QUESTIONS)[0])[0])[0]
     orig_dir = os.getcwd()
@@ -40,7 +40,6 @@ def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, be
         run_script(cmd, silent=silent)
 
         # Run judge on model answers
-        # python gen_judgment_safety.py  --bench-name sorry_bench --judge-model "openai/gpt-4" --model-list "openai/gpt-oss-20b" --parallel 16
         cmd = [
             "python",
             "gen_judgment_safety.py",
