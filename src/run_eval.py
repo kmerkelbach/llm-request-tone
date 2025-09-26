@@ -91,13 +91,9 @@ if __name__ == "__main__":
 
     # Define benchmarks
     benchmarks_subset = [
-        # "mmlu_pro",
         # "gpqa_diamond_cot_zeroshot",
-        "gsm8k_cot_llama",
-        # "ifeval",
         # "truthfulqa_gen",
         # "mbpp_plus_instruct",
-        # "bbh_cot_zeroshot",
         SORRY_BENCH_NAME
     ]
 
@@ -106,7 +102,7 @@ if __name__ == "__main__":
 
     # Run eval for different models
     models = [
-        "openai/gpt-oss-120b",
+        # "openai/gpt-oss-120b",
         "openai/gpt-oss-20b",
         # "meta-llama/llama-3.2-3b-instruct",
         # "qwen/qwen3-30b-a3b-thinking-2507",
