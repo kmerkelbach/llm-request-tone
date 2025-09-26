@@ -91,9 +91,9 @@ if __name__ == "__main__":
 
     # Define benchmarks
     benchmarks_subset = [
-        # "gpqa_diamond_cot_zeroshot",
-        # "truthfulqa_gen",
-        # "mbpp_plus_instruct",
+        "gpqa_diamond_cot_zeroshot",
+        "truthfulqa_gen",
+        "mbpp_plus_instruct",
         SORRY_BENCH_NAME
     ]
 
