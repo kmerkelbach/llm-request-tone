@@ -1,4 +1,4 @@
-# LLM Scenarios
+# LLM Prompt Framing Evaluation
 _What influence does framing a prompt have on performance and safety?_
 
 ## Motivation
