@@ -5,7 +5,7 @@ _What influence does framing a prompt have on performance and safety?_
 This repository contains code for running LLM performance benchmarks (using [lm-eval](https://github.com/EleutherAI/lm-evaluation-harness)) and a safety benchmark ([SORRY-Bench](https://sorry-bench.github.io/)) for answering the question of the influence of prompt _framing_, i.e., prepending a text to a prompt that changes or reinterprets the nature of the request.
 For instance, we could frame our request as being urgent, e.g.,
 ```
-``"I need help with this quickly, time is of the essence!"
+"I need help with this quickly, time is of the essence!"
 ```
 Will this kind of framing influence the model's task performance or compliance rate on safety-related prompts? 
 
