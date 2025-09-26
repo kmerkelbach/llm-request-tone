@@ -14,7 +14,7 @@ Clone this repository:
 ```commandline
 git clone git@github.com:kmerkelbach/llm-request-tone.git
 ```
-Also, you need to clone my fork of SORRY-Bench which has been modified to work with OpenRouter (https://openrouter.ai/):
+Also, you need to clone my fork of SORRY-Bench which has been modified to work with OpenRouter:
 ```commandline
 git clone git@github.com:kmerkelbach/sorry-bench.git
 ```
