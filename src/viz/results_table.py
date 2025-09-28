@@ -8,18 +8,15 @@ import numpy as np
 import pandas as pd
 
 from ..evaluation.dto import EvalResult
-from ..evaluation.eval_utils import load_result_file
+from ..evaluation.eval_utils import load_results_from_dir
 from ..util.utils import get_tables_dir
 from ..util.constants import *
 
 
 class TableMaker:
     def __init__(self, results_dir: str) -> None:
-        results_files = sorted(glob(os.path.join(results_dir, "*.json")))
-        results_file = results_files[-1]  # most recent file
-
         # Parse results as EvalResult
-        result_dict = load_result_file(results_file)
+        result_dict = load_results_from_dir(results_dir)
 
         # Make results table
         # - model
