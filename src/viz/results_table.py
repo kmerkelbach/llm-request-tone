@@ -19,13 +19,13 @@ class TableMaker:
         results_file = results_files[-1]  # most recent file
 
         # Parse results as EvalResult
-        result_set = load_result_file(results_file)
+        result_dict = load_result_file(results_file)
 
         # Make results table
         # - model
         # - benchmark
         # - scenario
-        self.results_df = self._make_results_table(results=result_set)
+        self.results_df = self._make_results_table(results=result_dict)
 
         # Make different aggregations of the table
         self._aggregate_table()
@@ -104,11 +104,11 @@ class TableMaker:
             if m in metrics:
                 return m
 
-    def _make_results_table(self, results: List[EvalResult]) -> pd.DataFrame:
+    def _make_results_table(self, results: Dict[str, EvalResult]) -> pd.DataFrame:
         # Build DataFrame by first constructing all the rows
         rows = []
 
-        for res in results:
+        for res in results.values():
             for benchmark_name_templated, results_dict in res.results['results'].items():
                 benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
 

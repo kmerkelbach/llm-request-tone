@@ -8,12 +8,16 @@ from ..util.utils import get_eval_dir
 from ..util.constants import *
 
 
-def load_result_file(eval_path: str) -> List[EvalResult]:
+def make_eval_key(model: str, benchmark: str) -> str:
+    return model + "_" + benchmark
+
+
+def load_result_file(eval_path: str) -> Dict[str, EvalResult]:
     # Open file
     with open(eval_path, "r") as f:
         loaded_eval = json.load(f)
 
-    res = []
+    res: Dict[str, EvalResult] = {}
 
     for model_name, model_res in loaded_eval.items():
         for benchmark_name, benchmark_res in model_res.items():
@@ -23,12 +27,15 @@ def load_result_file(eval_path: str) -> List[EvalResult]:
             if result is None:
                 continue
 
-            res.append(
-                EvalResult(
-                    model=model_name,
-                    benchmark_base=benchmark_name,
-                    results=result
-                )
+            key = make_eval_key(
+                model=model_name,
+                benchmark=benchmark_name
+            )
+
+            res[key] = EvalResult(
+                model=model_name,
+                benchmark_base=benchmark_name,
+                results=result
             )
 
     return res
