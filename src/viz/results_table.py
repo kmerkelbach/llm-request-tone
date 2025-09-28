@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from ..evaluation.dto import EvalResult
+from ..evaluation.eval_utils import load_result_file
 from ..util.utils import get_tables_dir
 from ..util.constants import *
 
@@ -18,7 +19,7 @@ class TableMaker:
         results_file = results_files[-1]  # most recent file
 
         # Parse results as EvalResult
-        result_set = self._parse_results_file(results_file)
+        result_set = load_result_file(results_file)
 
         # Make results table
         # - model
@@ -89,32 +90,6 @@ class TableMaker:
         df_res = df_res.iloc[:-1]  # remove lower margin
 
         return df_res
-
-    @staticmethod
-    def _parse_results_file(eval_path: str) -> List[EvalResult]:
-        # Open file
-        with open(eval_path, "r") as f:
-            loaded_eval = json.load(f)
-
-        res = []
-
-        for model_name, model_res in loaded_eval.items():
-            for benchmark_name, benchmark_res in model_res.items():
-
-                # Skip if not valid
-                result = benchmark_res['res']
-                if result is None:
-                    continue
-
-                res.append(
-                    EvalResult(
-                        model=model_name,
-                        benchmark_base=benchmark_name,
-                        results=result
-                    )
-                )
-
-        return res
 
     @staticmethod
     def _pick_metric(res: Dict) -> str:

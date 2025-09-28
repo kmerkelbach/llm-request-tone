@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import itertools
 
 from loguru import logger
 from typing import List, Dict, Optional
@@ -112,6 +113,17 @@ if __name__ == "__main__":
     ]
     results: Dict[str, Dict[str, Dict]] = {}
     # results[model_name][benchmark_name] = ... (eval res)
+
+    # Make all benchmark/model combos
+    combos = list(itertools.product(models, benchmarks_subset))
+    num_combos = len(combos)
+    logger.info(f"Found {num_combos} combinations of model and benchmark.")
+
+    # Load existing results
+
+
+    for idx, (model, benchmark) in enumerate(combos):
+        logger.info(f"Combination {idx + 1} of {num_combos}: MODEL {model}; BENCHMARK {benchmark}")
 
     for model in models:
 
