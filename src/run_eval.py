@@ -14,7 +14,7 @@ from .evaluation.dto import EvalResult
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
-from .util.config import benchmarks_selected, models
+from .util.config import benchmarks_selected, models, lm_eval_limit
 from .util.constants import *
 
 
@@ -37,7 +37,7 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
                                         model: str = "openai/gpt-oss-20b", limit: Optional[int] = 10,
                                         num_concurrent: Optional[int] = 16,
                                         write_to_disk: Optional[bool] = True,
-                                        silent: bool = False) -> Dict:
+                                        silent: bool = False) -> None:
     # Get task set
     filtered = [task for task in framed_tasks if base_benchmark in task.name]
 
@@ -63,7 +63,7 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
             limit=limit,
             num_concurrent=num_concurrent,
             silent=silent,
-            log_debug_prompt_file=True,
+            log_debug_prompt_file=False,
             unsafe_mode=True
         )
 
@@ -78,7 +78,7 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
 
     eval_res = EvalResult(
         model=model,
-        benchmark_base=benchmark,
+        benchmark_base=base_benchmark,
         framework=framework,
         results=res,
         date_created=datetime.isoformat(datetime.now())
@@ -87,12 +87,12 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
     # Save eval result to disk
     if write_to_disk:
         eval_dict = {
-            make_eval_key(model=model, benchmark=benchmark): eval_res
+            make_eval_key(model=model, benchmark=base_benchmark): eval_res
         }
         write_results(eval_dict)
 
 
-if __name__ == "__main__":
+def run_eval(force_run: bool = False):
     # Frame tasks
     framer = TaskFramer()
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
@@ -104,7 +104,6 @@ if __name__ == "__main__":
 
     # Load existing results
     results_loaded: Dict[str, EvalResult] = load_results_from_dir(get_eval_dir())
-    results_new: Dict[str, EvalResult] = {}
 
     for idx, (model, benchmark) in enumerate(combos):
         logger.info(f"Combination {idx + 1} of {num_combos}: MODEL {model}; BENCHMARK {benchmark}")
@@ -114,7 +113,7 @@ if __name__ == "__main__":
             model=model,
             benchmark=benchmark
         )
-        if combo_key in results_loaded:
+        if combo_key in results_loaded and not force_run:
             logger.info(f"Skipping (we already have data)")
             continue
 
@@ -125,8 +124,12 @@ if __name__ == "__main__":
                 base_benchmark=benchmark,
                 model=model,
                 num_concurrent=32,
-                limit=2,
+                limit=lm_eval_limit,
                 write_to_disk=True  # critical: otherwise, nothing is saved
             )
         except RuntimeError as e:
             logger.warning(f"Could not run combo {model} / {benchmark}.")
+
+
+if __name__ == "__main__":
+    run_eval()
