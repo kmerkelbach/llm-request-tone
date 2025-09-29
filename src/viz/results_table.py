@@ -3,6 +3,7 @@ import os
 import json
 from glob import glob
 from itertools import product
+from loguru import logger
 
 import numpy as np
 import pandas as pd
@@ -23,6 +24,10 @@ class TableMaker:
         # - benchmark
         # - scenario
         self.results_df = self._make_results_table(results=result_dict)
+
+        if len(self.results_df) == 0:
+            logger.info("No results loaded. Exiting.")
+            return
 
         # Make different aggregations of the table
         self._aggregate_table()
