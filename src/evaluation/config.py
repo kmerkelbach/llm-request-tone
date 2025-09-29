@@ -13,21 +13,18 @@ benchmarks_all = [
 ]
 
 benchmarks_selected = sorted([
-    # "gpqa_diamond_cot_zeroshot",
+    "gpqa_diamond_cot_zeroshot",
     "truthfulqa_gen",
-    # "mbpp_plus_instruct",
-    # SORRY_BENCH_NAME
+    "mbpp_plus_instruct",
+    SORRY_BENCH_NAME
 ])
 assert all(b in benchmarks_all for b in benchmarks_selected), "Not all selected benchmarks are in the main list!"
 
 models = sorted([
-    # "openai/gpt-oss-120b",
-    "openai/gpt-oss-20b",
-    # "meta-llama/llama-3.2-3b-instruct",
-    # "qwen/qwen3-30b-a3b-thinking-2507",
-    # "x-ai/grok-code-fast-1",
-    # "anthropic/claude-sonnet-4",
-    # "deepseek/deepseek-chat-v3-0324"
+    "openai/gpt-oss-20b",  # GPT large
+    "openai/gpt-oss-120b",  # GPT large
+    "qwen/qwen3-next-80b-a3b-thinking",  # Qwen small
+    "qwen/qwen3-235b-a22b-thinking-2507",  # Qwen large
 ])
 
-lm_eval_limit = 3
+lm_eval_limit = None  # set to None for no limit
