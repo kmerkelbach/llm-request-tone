@@ -2,36 +2,31 @@ import json
 import os
 import random
 import itertools
+from datetime import datetime
 
 from loguru import logger
 from typing import List, Dict, Optional
 
 from .evaluation.lm_eval_shell import run_lm_eval
 from .evaluation.sorry_bench_shell import run_sorry_bench
+from .evaluation.eval_utils import load_results_from_dir, make_eval_key
+from .evaluation.dto import EvalResult
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
+from .util.config import benchmarks_selected, models
 from .util.constants import *
 
 
-benchmarks_all = [
-    "mmlu_pro",
-    "gpqa_diamond_cot_zeroshot",
-    "gsm8k_cot_llama",
-    "ifeval",
-    "truthfulqa_gen",
-    "mbpp_plus_instruct",
-    "bbh_cot_zeroshot",
-    SORRY_BENCH_NAME
-]
+def write_results(eval_results: Dict[str, EvalResult]) -> str:
+    # Convert from EvalResult to dict
+    eval_results = {k: v.to_dict() for (k, v) in eval_results.items()}
 
-
-def write_results(eval_res: Dict) -> str:
     eval_filename = f"result_eval_{make_date_string()}.json"
 
     eval_path = os.path.join(get_eval_dir(), eval_filename)
     with open(eval_path, "w") as f:
-        json.dump(eval_res, f, indent=4)
+        json.dump(eval_results, f, indent=4)
 
     logger.info(f"Wrote eval results to file {eval_path}")
 
@@ -54,13 +49,15 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
     tasks_lm_eval = [task for task in filtered if task.origin_task != SORRY_BENCH_NAME]
     tasks_sorry = [task for task in filtered if task.origin_task == SORRY_BENCH_NAME]
 
-    eval_res = {
-        FRAMEWORK_LM_EVAL: None,
-        FRAMEWORK_SORRY: None
-    }
+    # Make sure we are only running either SORRY or lm-eval
+    assert (len(tasks_lm_eval) > 0) ^ (len(tasks_sorry) > 0), "Can only run SORRY-Bench or lm-eval, NOT BOTH."
+
+    res: Optional[Dict] = None
+    framework: Optional[str] = None
 
     if len(tasks_lm_eval) > 0:
-        eval_res[FRAMEWORK_LM_EVAL] = run_lm_eval(
+        framework = "lm-eval"
+        res = run_lm_eval(
             model=model,
             tasks=[task.name for task in tasks_lm_eval],
             limit=limit,
@@ -71,18 +68,28 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
         )
 
     if len(tasks_sorry) > 0:
-        eval_res[FRAMEWORK_SORRY] =run_sorry_bench(
+        framework = "sorry"
+        res = run_sorry_bench(
             model=model,
             data_mutations=[task.scenario.name for task in tasks_sorry],
             parallel=num_concurrent,
             silent=silent
         )
 
+    eval_res = EvalResult(
+        model=model,
+        benchmark_base=benchmark,
+        framework=framework,
+        results=res,
+        date_created=datetime.isoformat(datetime.now())
+    )
+
     # Save eval result to disk
     if write_to_disk:
-        write_results(eval_res)
-
-    return eval_res
+        eval_dict = {
+            make_eval_key(model=model, benchmark=benchmark): eval_res
+        }
+        write_results(eval_dict)
 
 
 if __name__ == "__main__":
@@ -90,65 +97,36 @@ if __name__ == "__main__":
     framer = TaskFramer()
     modified_tasks: List[ModifiedTask] = framer.template_all_tasks()
 
-    # Define benchmarks
-    benchmarks_subset = [
-        "gpqa_diamond_cot_zeroshot",
-        "truthfulqa_gen",
-        "mbpp_plus_instruct",
-        SORRY_BENCH_NAME
-    ]
-
-    # Make sure the selected base benchmarks are all in the main benchmark list
-    assert all(b in benchmarks_all for b in benchmarks_subset), "Not all selected benchmarks are in the main list!"
-
-    # Run eval for different models
-    models = [
-        # "openai/gpt-oss-120b",
-        "openai/gpt-oss-20b",
-        # "meta-llama/llama-3.2-3b-instruct",
-        # "qwen/qwen3-30b-a3b-thinking-2507",
-        # "x-ai/grok-code-fast-1",
-        # "anthropic/claude-sonnet-4",
-        # "deepseek/deepseek-chat-v3-0324"
-    ]
-    results: Dict[str, Dict[str, Dict]] = {}
-    # results[model_name][benchmark_name] = ... (eval res)
-
     # Make all benchmark/model combos
-    combos = list(itertools.product(models, benchmarks_subset))
+    combos = list(itertools.product(models, benchmarks_selected))
     num_combos = len(combos)
     logger.info(f"Found {num_combos} combinations of model and benchmark.")
 
     # Load existing results
-
+    results_loaded: Dict[str, EvalResult] = load_results_from_dir(get_eval_dir())
+    results_new: Dict[str, EvalResult] = {}
 
     for idx, (model, benchmark) in enumerate(combos):
         logger.info(f"Combination {idx + 1} of {num_combos}: MODEL {model}; BENCHMARK {benchmark}")
 
-    for model in models:
+        # Skip if we already have data on this combination
+        combo_key = make_eval_key(
+            model=model,
+            benchmark=benchmark
+        )
+        if combo_key in results_loaded:
+            logger.info(f"Skipping (we already have data)")
+            continue
 
-        model_res = {}
-        for bench in benchmarks_subset:
-            try:
-                res = run_eval_for_benchmark_and_framings(
-                    framed_tasks=modified_tasks,
-                    base_benchmark=bench,
-                    model=model,
-                    num_concurrent=32,
-                    limit=2,
-                    write_to_disk=False,
-                )
-                msg = "OK"
-            except RuntimeError as e:
-                res = None
-                msg = str(e)
-
-            model_res[bench] = {
-                "res": res,
-                "msg": msg
-            }
-
-        results[model] = model_res
-
-    # Write overall results to disk
-    write_results(results)
+        # Run the benchmark with the model
+        try:
+            run_eval_for_benchmark_and_framings(
+                framed_tasks=modified_tasks,
+                base_benchmark=benchmark,
+                model=model,
+                num_concurrent=32,
+                limit=2,
+                write_to_disk=True  # critical: otherwise, nothing is saved
+            )
+        except RuntimeError as e:
+            logger.warning(f"Could not run combo {model} / {benchmark}.")

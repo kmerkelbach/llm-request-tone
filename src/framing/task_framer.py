@@ -10,6 +10,7 @@ from .dto import Scenario, ModifiedTask
 from ..util.utils import (get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml,
                           read_jsonl, write_jsonl)
 from ..util.constants import *
+from ..util.config import benchmarks_selected
 
 
 class TaskFramer:
@@ -85,6 +86,11 @@ class TaskFramer:
         dst_task_name = origin_task + task_name_addition
         dst_task_path = os.path.join(self._applied_tasks_dir, dst_task_name)
         shutil.copytree(task_folder, dst_task_path)
+
+        # Skip if benchmark not selected for execution
+        task_name_start = origin_task.split("_")[0]
+        if not any(task_name_start in bench_name for bench_name in benchmarks_selected):
+            return
 
         # Change the content of the extra message to the scenario text
         extra_message_path = os.path.join(dst_task_path, "extra_text.txt")
