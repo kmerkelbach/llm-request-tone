@@ -9,7 +9,7 @@ import pandas as pd
 
 from ..evaluation.dto import EvalResult
 from ..evaluation.eval_utils import load_results_from_dir
-from ..util.utils import get_tables_dir
+from ..util.utils import get_tables_dir, mkdir
 from ..util.constants import *
 
 
@@ -28,17 +28,28 @@ class TableMaker:
         self._aggregate_table()
 
     def _aggregate_table(self):
-        df_scenario_vs_model = self._aggregate_by_scenario_and_model(self.results_df.copy())
-        df_scenario_vs_model.to_csv(
-            os.path.join(get_tables_dir(), "scenario_vs_model.csv")
-        )
+        for framework in [FRAMEWORK_LM_EVAL, FRAMEWORK_SORRY]:
+            framework_dir = mkdir(
+                os.path.join(get_tables_dir(), framework)
+            )
 
-        df_scenario_vs_benchmark = self._aggregate_by_scenario_and_benchmark(self.results_df.copy())
-        df_scenario_vs_benchmark.to_csv(
-            os.path.join(get_tables_dir(), "scenario_vs_benchmark.csv")
-        )
+            df_scenario_vs_model = self._aggregate_by_scenario_and_model(
+                self.results_df.copy(),
+                framework_filter=framework
+            )
+            df_scenario_vs_model.to_csv(
+                os.path.join(framework_dir, "scenario_vs_model.csv")
+            )
 
-    def _subtract_baseline(self, df: pd.DataFrame) -> pd.DataFrame:
+            df_scenario_vs_benchmark = self._aggregate_by_scenario_and_benchmark(
+                self.results_df.copy(),
+                framework_filter=framework
+            )
+            df_scenario_vs_benchmark.to_csv(
+                os.path.join(framework_dir, "scenario_vs_benchmark.csv")
+            )
+
+    def _subtract_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's subtract the base task performance for each model/benchmark combination
         normalized_to_base = []
         models = np.unique(df[FIELD_MODEL])
@@ -50,6 +61,11 @@ class TableMaker:
             base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASELINE)]
             base_val = base_selection.iloc[0][FIELD_METRIC_VALUE]
 
+            # Skip if framework is incorrect
+            framework = base_selection.iloc[0][FIELD_FRAMEWORK]
+            if framework != framework_filter:
+                continue
+
             # Subtract it everywhere (for this combo)
             selection[FIELD_METRIC_VALUE] -= base_val
             normalized_to_base.append(selection)
@@ -57,8 +73,8 @@ class TableMaker:
 
         return normalized_to_base
 
-    def _aggregate_by_scenario_and_benchmark(self, df: pd.DataFrame) -> pd.DataFrame:
-        normalized_to_base = self._subtract_baseline(df)
+    def _aggregate_by_scenario_and_benchmark(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
+        normalized_to_base = self._subtract_baseline(df, framework_filter=framework_filter)
 
         # Make pivot table
         df_res = pd.pivot_table(
@@ -72,8 +88,8 @@ class TableMaker:
 
         return df_res
 
-    def _aggregate_by_scenario_and_model(self, df: pd.DataFrame) -> pd.DataFrame:
-        normalized_to_base = self._subtract_baseline(df)
+    def _aggregate_by_scenario_and_model(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
+        normalized_to_base = self._subtract_baseline(df, framework_filter=framework_filter)
 
         # Make pivot table
         df_res = pd.pivot_table(
@@ -106,22 +122,32 @@ class TableMaker:
         rows = []
 
         for res in results.values():
-            for benchmark_name_templated, results_dict in res.results['results'].items():
+            for benchmark_name_templated, results_dict in res.results.items():
                 benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
 
                 if benchmark_variation.startswith(TEMPLATED_STR):
                     benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
                 benchmark_variation = benchmark_variation.strip("_")
 
-                metric = self._pick_metric(results_dict)
-                val = results_dict[metric]
+                if res.framework == FRAMEWORK_SORRY:
+                    # Report average compliance
+                    compliance_rates = list(results_dict.values())
+                    compliance_rate_avg = np.mean(compliance_rates)  # naive mean is unbaised since class counts are
+                    # balanced for SORRY-Bench
+                    metric = "compliance_rate"
+                    val = compliance_rate_avg
+                else:
+                    # lm-eval
+                    metric = self._pick_metric(results_dict)
+                    val = float(results_dict[metric])
 
                 rows.append({
                     FIELD_MODEL: res.model,
                     FIELD_BENCHMARK: res.benchmark_base,
+                    FIELD_FRAMEWORK: res.framework,
                     FIELD_SCENARIO: benchmark_variation,
                     FIELD_METRIC_NAME: metric,
-                    FIELD_METRIC_VALUE: float(val)
+                    FIELD_METRIC_VALUE: val
                 })
 
         # Make "flat" DataFrame

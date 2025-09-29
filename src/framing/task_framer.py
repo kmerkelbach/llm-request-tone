@@ -2,15 +2,15 @@ import json
 import shutil
 import os
 from glob import glob
-from typing import List, Optional, Dict
+from typing import List, Dict
 from loguru import logger
 from tqdm import tqdm
 
 from .dto import Scenario, ModifiedTask
 from ..util.utils import (get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml,
-                          read_jsonl, write_jsonl)
+                          read_jsonl, write_jsonl, mkdir)
 from ..util.constants import *
-from ..util.config import benchmarks_selected
+from src.evaluation.config import benchmarks_selected
 
 
 class TaskFramer:
@@ -48,9 +48,7 @@ class TaskFramer:
         parent_dir = os.path.split(directory)[0]
         templated_dir = os.path.join(parent_dir, "sorry_templated")
 
-        os.makedirs(templated_dir, exist_ok=True)
-
-        return templated_dir
+        return mkdir(templated_dir)
 
     def _apply_scenario_to_sorry_bench(self, scenario: Scenario):
         # Open SORRY-Bench questions file (jsonl)

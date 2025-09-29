@@ -1,6 +1,5 @@
 import json
 import os
-import random
 import itertools
 from datetime import datetime
 
@@ -14,7 +13,7 @@ from .evaluation.dto import EvalResult
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
-from .util.config import benchmarks_selected, models, lm_eval_limit
+from src.evaluation.config import benchmarks_selected, models, lm_eval_limit
 from .util.constants import *
 
 
@@ -56,7 +55,7 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
     framework: Optional[str] = None
 
     if len(tasks_lm_eval) > 0:
-        framework = "lm-eval"
+        framework = FRAMEWORK_LM_EVAL
         res = run_lm_eval(
             model=model,
             tasks=[task.name for task in tasks_lm_eval],
@@ -68,7 +67,7 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
         )
 
     if len(tasks_sorry) > 0:
-        framework = "sorry"
+        framework = FRAMEWORK_SORRY
         res = run_sorry_bench(
             model=model,
             data_mutations=[task.scenario.name for task in tasks_sorry],

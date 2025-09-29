@@ -1,4 +1,4 @@
-from ..util.constants import *
+from src.util.constants import *
 
 
 benchmarks_all = [

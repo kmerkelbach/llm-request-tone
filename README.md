@@ -50,7 +50,6 @@ python -m src.report_results
 ```
 This creates evaluation tables.
 
-_Note that reports generation is currently in an unfinished state._
 
 ## Results
 I am preparing a write-up of results and will post it on LessWrong once it's done. Watch this space for the link.

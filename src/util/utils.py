@@ -27,9 +27,13 @@ def get_tables_dir() -> str:
 
 
 def get_src_sister_dir(name: str) -> str:
-    sister_dir = os.path.realpath(os.path.join(get_src_dir(), "..", name))
-    os.makedirs(sister_dir, exist_ok=True)
+    sister_dir = mkdir(os.path.realpath(os.path.join(get_src_dir(), "..", name)))
     return sister_dir
+
+
+def mkdir(path: str) -> str:
+    os.makedirs(path, exist_ok=True)
+    return path
 
 
 def get_scenario_path() -> str:
@@ -48,8 +52,7 @@ def get_task_applied_folder(reset: bool = False) -> str:
     applied_folder = os.path.join(_get_task_root_folder(), "applied")
     if reset and os.path.isdir(applied_folder):
         shutil.rmtree(applied_folder)
-    os.makedirs(applied_folder, exist_ok=True)
-    return applied_folder
+    return mkdir(applied_folder)
 
 
 def read_yaml(path: str) -> Dict:
