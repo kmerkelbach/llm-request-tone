@@ -24,6 +24,9 @@ class TableMaker:
         # - benchmark
         # - scenario
         self.results_df = self._make_results_table(results=result_dict)
+        self.results_df.to_csv(
+            os.path.join(get_tables_dir(), "results_full.csv")
+        )
 
         if len(self.results_df) == 0:
             logger.info("No results loaded. Exiting.")

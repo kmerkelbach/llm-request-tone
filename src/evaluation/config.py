@@ -21,10 +21,11 @@ benchmarks_selected = sorted([
 assert all(b in benchmarks_all for b in benchmarks_selected), "Not all selected benchmarks are in the main list!"
 
 models = sorted([
-    "openai/gpt-oss-20b",  # GPT large
+    "openai/gpt-oss-20b",  # GPT small
     "openai/gpt-oss-120b",  # GPT large
-    "qwen/qwen3-next-80b-a3b-thinking",  # Qwen small
-    "qwen/qwen3-235b-a22b-thinking-2507",  # Qwen large
+    "meta-llama/llama-3.3-70b-instruct",  # LLama large
+    "qwen/qwen-2.5-7b-instruct",  # Qwen small
+    "qwen/qwen-2.5-72b-instruct",  # Qwen large
 ])
 
 lm_eval_limit = None  # set to None for no limit

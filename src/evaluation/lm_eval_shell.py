@@ -41,7 +41,7 @@ def run_lm_eval(
     api_key_env: str = "OPENROUTER_API_KEY",
     batch_size: int = 1,
     apply_chat_template: bool = True,
-    max_retries: int = 30,
+    max_retries: int = 100,
     loglevel: str = "DEBUG",
     lm_eval_executable: str = "lm_eval",
     include_path: str = "../tasks/applied",
