@@ -58,9 +58,9 @@ class TableMaker:
                     columns_to_show=col_set
                 )
                 col_set_str = "_".join(col_set)
-                df_agg.to_csv(
-                    os.path.join(framework_dir, f"scenario_vs_{col_set_str}.csv")
-                )
+                filename_base = os.path.join(framework_dir, f"scenario_vs_{col_set_str}")
+                df_agg.to_csv(filename_base + ".csv", index=True)
+                df_agg.to_markdown(filename_base + ".md", index=True)
 
     def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's divide by the base task performance for each model/benchmark combination
@@ -71,6 +71,7 @@ class TableMaker:
             # Find out base scenario's value
             selection = df[(df[FIELD_MODEL] == model)
                            & (df[FIELD_BENCHMARK] == benchmark)]
+            selection = selection.reset_index(drop=True)  # would otherwise get a warning when changing value
             base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASELINE)]
             base_val = base_selection.iloc[0][FIELD_METRIC_VALUE]
 
@@ -100,6 +101,9 @@ class TableMaker:
             margins=True
         )
         df_res = df_res.iloc[:-1]  # remove lower margin
+
+        # Remove superfluous "value" part of columns
+        df_res.columns = df_res.columns.droplevel()
 
         return df_res
 
