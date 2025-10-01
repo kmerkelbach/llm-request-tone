@@ -23,9 +23,10 @@ assert all(b in benchmarks_all for b in benchmarks_selected), "Not all selected 
 models = sorted([
     "openai/gpt-oss-20b",  # GPT small
     "openai/gpt-oss-120b",  # GPT large
-    "meta-llama/llama-3.3-70b-instruct",  # LLama large
     "qwen/qwen-2.5-7b-instruct",  # Qwen small
     "qwen/qwen-2.5-72b-instruct",  # Qwen large
+    "meta-llama/llama-3.1-8b-instruct",  # Llama small
+    "meta-llama/llama-3.1-70b-instruct",  # Llama large
 ])
 
 lm_eval_limit = None  # set to None for no limit
