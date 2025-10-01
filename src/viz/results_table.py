@@ -37,26 +37,30 @@ class TableMaker:
         self._aggregate_table()
 
     def _aggregate_table(self):
+        # Columns to aggregate - each entry is a list of columns that we will use for aggregation (i.e., aggregating
+        # over the _other_ columns).
+        column_sets = [
+            [FIELD_MODEL],
+            [FIELD_BENCHMARK],
+            [FIELD_MODEL_FAMILY],
+            [FIELD_MODEL_SIZE],
+        ]
+
         for framework in [FRAMEWORK_LM_EVAL, FRAMEWORK_SORRY]:
             framework_dir = mkdir(
                 os.path.join(get_tables_dir(), framework)
             )
 
-            df_scenario_vs_model = self._aggregate_by_scenario_and_model(
-                self.results_df.copy(),
-                framework_filter=framework
-            )
-            df_scenario_vs_model.to_csv(
-                os.path.join(framework_dir, "scenario_vs_model.csv")
-            )
-
-            df_scenario_vs_benchmark = self._aggregate_by_scenario_and_benchmark(
-                self.results_df.copy(),
-                framework_filter=framework
-            )
-            df_scenario_vs_benchmark.to_csv(
-                os.path.join(framework_dir, "scenario_vs_benchmark.csv")
-            )
+            for col_set in column_sets:
+                df_agg = self._aggregate_by_scenario(
+                    self.results_df.copy(),
+                    framework_filter=framework,
+                    columns_to_show=col_set
+                )
+                col_set_str = "_".join(col_set)
+                df_agg.to_csv(
+                    os.path.join(framework_dir, f"scenario_vs_{col_set_str}.csv")
+                )
 
     def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's divide by the base task performance for each model/benchmark combination
@@ -82,7 +86,8 @@ class TableMaker:
 
         return normalized_to_base
 
-    def _aggregate_by_scenario_and_benchmark(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
+    def _aggregate_by_scenario(self, df: pd.DataFrame, framework_filter: str,
+                                         columns_to_show: List[str]) -> pd.DataFrame:
         normalized_to_base = self._divide_by_baseline(df, framework_filter=framework_filter)
 
         # Make pivot table
@@ -90,22 +95,7 @@ class TableMaker:
             normalized_to_base,
             values=[FIELD_METRIC_VALUE],
             index=[FIELD_SCENARIO],
-            columns=[FIELD_BENCHMARK],
-            aggfunc="mean",
-            margins=False
-        )
-
-        return df_res
-
-    def _aggregate_by_scenario_and_model(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
-        normalized_to_base = self._divide_by_baseline(df, framework_filter=framework_filter)
-
-        # Make pivot table
-        df_res = pd.pivot_table(
-            normalized_to_base,
-            values=[FIELD_METRIC_VALUE],
-            index=[FIELD_SCENARIO],
-            columns=[FIELD_MODEL],
+            columns=columns_to_show,
             aggfunc="mean",
             margins=True
         )
