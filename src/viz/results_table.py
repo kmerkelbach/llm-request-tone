@@ -66,17 +66,8 @@ class TableMaker:
                 col_set_str = "_".join(col_set)
                 filename_base = f"scenario_vs_{col_set_str}"
 
-                # Save with and without "All" columns
-                for with_all in [True, False]:
-                    if not with_all:
-                        df_agg = df_agg[df_agg.columns[:-1]]
-
-                    var_dir = mkdir(
-                        os.path.join(framework_dir, "with_all" if with_all else "plain")
-                    )
-
-                    df_agg.to_csv(os.path.join(var_dir, filename_base + ".csv"), index=True)
-                    df_agg.to_markdown(os.path.join(var_dir, filename_base + ".md"), index=True)
+                df_agg.to_csv(os.path.join(framework_dir, filename_base + ".csv"), index=True)
+                df_agg.to_markdown(os.path.join(framework_dir, filename_base + ".md"), index=True)
 
     def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's divide by the base task performance for each model/benchmark combination
@@ -132,9 +123,8 @@ class TableMaker:
             index=[scenario_col],
             columns=columns_to_show,
             aggfunc="median",
-            margins=True
+            margins=False
         )
-        df_res = df_res.iloc[:-1]  # remove lower margin
 
         # Remove superfluous "value" part of columns
         df_res.columns = df_res.columns.droplevel()
