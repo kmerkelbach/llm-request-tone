@@ -126,6 +126,36 @@ class TableMaker:
             if m in metrics:
                 return m
 
+    @staticmethod
+    def _get_model_family(model_name: str) -> str:
+        model_name = model_name.lower()
+        if "gpt" in model_name:
+            return "GPT"
+        elif "qwen" in model_name:
+            return "Qwen"
+        elif "llama" in model_name:
+            return "Llama"
+        else:
+            assert False, f"Cannot determine model family for {model_name}"
+
+    @staticmethod
+    def _get_model_size(model_id: str) -> str:
+        model_id = model_id.lower()
+
+        # Get last part of name
+        model_name = model_id.split("/")[-1]
+
+        # Find a part of the name that ends with "b"
+        size_specifiers = [tok for tok in model_name.split("-") if tok.endswith("b")]
+        assert len(size_specifiers) == 1, f"Could not get model size from model ID {model_id}"
+
+        # Extract size (in billions of parameters)
+        size = int(size_specifiers[0].strip("b"))
+        if size < 35:
+            return MODEL_SIZE_SMALL
+        else:
+            return MODEL_SIZE_LARGE
+
     def _make_results_table(self, results: Dict[str, EvalResult]) -> pd.DataFrame:
         # Build DataFrame by first constructing all the rows
         rows = []
@@ -137,6 +167,10 @@ class TableMaker:
             if model not in models:
                 logger.info(f"Skipping result with key '{res_key}': Model {model} not included in models list.")
                 continue
+
+            # Find out model family and size
+            model_family = self._get_model_family(model)
+            model_size = self._get_model_size(model)
 
             for benchmark_name_templated, results_dict in res.results.items():
                 benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
@@ -159,6 +193,8 @@ class TableMaker:
 
                 rows.append({
                     FIELD_MODEL: model,
+                    FIELD_MODEL_FAMILY: model_family,
+                    FIELD_MODEL_SIZE: model_size,
                     FIELD_BENCHMARK: res.benchmark_base,
                     FIELD_FRAMEWORK: res.framework,
                     FIELD_SCENARIO: benchmark_variation,
@@ -168,4 +204,12 @@ class TableMaker:
 
         # Make "flat" DataFrame
         df = pd.DataFrame(rows)
+
+        # Sort
+        df.sort_values(
+            by=[FIELD_MODEL_FAMILY, FIELD_MODEL_SIZE, FIELD_FRAMEWORK, FIELD_BENCHMARK, FIELD_SCENARIO],
+            ascending=[True, False, True, True, True],
+            inplace=True
+        )
+
         return df
