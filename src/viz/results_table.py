@@ -12,6 +12,7 @@ from ..evaluation.dto import EvalResult
 from ..evaluation.eval_utils import load_results_from_dir
 from ..util.utils import get_tables_dir, mkdir
 from ..util.constants import *
+from ..evaluation.config import models
 
 
 class TableMaker:
@@ -129,7 +130,14 @@ class TableMaker:
         # Build DataFrame by first constructing all the rows
         rows = []
 
-        for res in results.values():
+        for res_key, res in results.items():
+
+            # Ignore this result if the model does not appear in our model list
+            model = res.model
+            if model not in models:
+                logger.info(f"Skipping result with key '{res_key}': Model {model} not included in models list.")
+                continue
+
             for benchmark_name_templated, results_dict in res.results.items():
                 benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
 
@@ -150,7 +158,7 @@ class TableMaker:
                     val = float(results_dict[metric])
 
                 rows.append({
-                    FIELD_MODEL: res.model,
+                    FIELD_MODEL: model,
                     FIELD_BENCHMARK: res.benchmark_base,
                     FIELD_FRAMEWORK: res.framework,
                     FIELD_SCENARIO: benchmark_variation,
