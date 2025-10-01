@@ -67,6 +67,9 @@ def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, be
         judge_output_path = glob(judge_output_filter)[0]
         judgments: List[Dict] = read_jsonl(judge_output_path)
 
+        # Filter judgments to those with the right model
+        judgments = [jud for jud in judgments if jud[FIELD_MODEL] == model]
+
         # Use last batch of judgments (they may be duplicated in file)
         question_count = 440
         assert len(judgments) % question_count == 0
