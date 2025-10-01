@@ -50,6 +50,7 @@ class TableMaker:
             [FIELD_MODEL_SIZE],
             [FIELD_BENCHMARK, FIELD_MODEL],
             [FIELD_BENCHMARK, FIELD_MODEL_FAMILY],
+            [FIELD_MODEL_FAMILY, FIELD_MODEL_SIZE]
         ]
 
         for framework in [FRAMEWORK_LM_EVAL, FRAMEWORK_SORRY]:
@@ -58,16 +59,23 @@ class TableMaker:
             )
 
             for col_set in column_sets:
-                df_agg = self._aggregate_by_scenario(
-                    self.results_df.copy(),
-                    framework_filter=framework,
-                    columns_to_show=col_set
-                )
-                col_set_str = "_".join(col_set)
-                filename_base = f"scenario_vs_{col_set_str}"
+                for agg_func in ["median", "mean", "min", "max"]:
 
-                df_agg.to_csv(os.path.join(framework_dir, filename_base + ".csv"), index=True)
-                df_agg.to_markdown(os.path.join(framework_dir, filename_base + ".md"), index=True)
+                    df_agg = self._aggregate_by_scenario(
+                        self.results_df.copy(),
+                        framework_filter=framework,
+                        columns_to_show=col_set,
+                        aggregation_func="median"
+                    )
+                    col_set_str = "_".join(col_set)
+                    filename_base = f"scenario_vs_{col_set_str}"
+
+                    var_dir = mkdir(
+                        os.path.join(framework_dir, agg_func)
+                    )
+
+                    df_agg.to_csv(os.path.join(var_dir, filename_base + ".csv"), index=True)
+                    df_agg.to_markdown(os.path.join(var_dir, filename_base + ".md"), index=True)
 
     def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's divide by the base task performance for each model/benchmark combination
@@ -96,33 +104,40 @@ class TableMaker:
 
     def _aggregate_by_scenario(self, df: pd.DataFrame, framework_filter: str,
                                columns_to_show: List[str],
-                               show_change_as_percentage: bool = True) -> pd.DataFrame:
-        normalized_to_base = self._divide_by_baseline(df, framework_filter=framework_filter)
+                               show_change_as_percentage: bool = True,
+                               aggregation_func: str = "median") -> pd.DataFrame:
+        normalized_df = self._divide_by_baseline(df, framework_filter=framework_filter)
 
         # Optionally convert percentages to changes (e.g., 0.9 to -10% and 1.3 to +30%)
         if show_change_as_percentage:
-            normalized_to_base[FIELD_METRIC_VALUE] = normalized_to_base[FIELD_METRIC_VALUE].map(
+            normalized_df[FIELD_METRIC_VALUE] = normalized_df[FIELD_METRIC_VALUE].map(
                 lambda val: 100 * (val - 1)  # e.g., 0.9 -> -10
             )
 
         # Capitalize scenario column
         scenario_col = FIELD_SCENARIO.capitalize()
-        normalized_to_base = normalized_to_base.rename(
+        normalized_df = normalized_df.rename(
             columns={FIELD_SCENARIO: scenario_col}
         )
 
         # Apply nice display names for benchmarks
-        normalized_to_base[FIELD_BENCHMARK] = normalized_to_base[FIELD_BENCHMARK].apply(
+        normalized_df[FIELD_BENCHMARK] = normalized_df[FIELD_BENCHMARK].apply(
             lambda bench_name: benchmarks_display_names[bench_name]
         )
 
+        # Map "small" and "large" to "Small Models" and "Large Models"
+        if FIELD_MODEL_SIZE in columns_to_show:
+            normalized_df[FIELD_MODEL_SIZE] = normalized_df[FIELD_MODEL_SIZE].apply(
+                lambda size_val: f"{size_val.capitalize()} Models"
+            )
+
         # Make pivot table
         df_res = pd.pivot_table(
-            normalized_to_base,
+            normalized_df,
             values=[FIELD_METRIC_VALUE],
             index=[scenario_col],
             columns=columns_to_show,
-            aggfunc="median",
+            aggfunc=aggregation_func,
             margins=False
         )
 
@@ -145,6 +160,11 @@ class TableMaker:
             idx = df_res.columns.to_series()
             idx = idx.apply(flatten_entries)
             df_res.columns = idx
+
+        if FIELD_MODEL_SIZE in columns_to_show:
+            # If using size, sort descending so that "small" appears before "large"
+            cols = sorted(df_res.columns, reverse=True)
+            df_res = df_res[cols]
 
         # Format changes
         if show_change_as_percentage:
