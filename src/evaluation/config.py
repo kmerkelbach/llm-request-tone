@@ -20,6 +20,17 @@ benchmarks_selected = sorted([
 ])
 assert all(b in benchmarks_all for b in benchmarks_selected), "Not all selected benchmarks are in the main list!"
 
+benchmarks_display_names = {
+    "mmlu_pro": "MMLU Pro",
+    "gpqa_diamond_cot_zeroshot": "GPQA Diamond",
+    "gsm8k_cot_llama": "GSM8K",
+    "ifeval": "IFEval",
+    "truthfulqa_gen": "TruthfulQA",
+    "mbpp_plus_instruct": "MBPP+",
+    "bbh_cot_zeroshot": "BIG-Bench Hard",
+    SORRY_BENCH_NAME: "SORRY-Bench",
+}
+
 models = sorted([
     "openai/gpt-oss-20b",  # GPT small
     "openai/gpt-oss-120b",  # GPT large

@@ -13,7 +13,7 @@ from ..framing.task_framer import TaskFramer
 from ..evaluation.eval_utils import load_results_from_dir
 from ..util.utils import get_tables_dir, mkdir
 from ..util.constants import *
-from ..evaluation.config import models
+from ..evaluation.config import models, benchmarks_display_names
 
 
 class TableMaker:
@@ -63,8 +63,14 @@ class TableMaker:
                 )
                 col_set_str = "_".join(col_set)
                 filename_base = os.path.join(framework_dir, f"scenario_vs_{col_set_str}")
-                df_agg.to_csv(filename_base + ".csv", index=True)
-                df_agg.to_markdown(filename_base + ".md", index=True)
+
+                # Save with and without "All" columns
+                for with_all, variant_name in [(True, "_with_all"), (False, "")]:
+                    if not with_all:
+                        df_agg = df_agg[df_agg.columns[:-1]]
+
+                    df_agg.to_csv(filename_base + variant_name + ".csv", index=True)
+                    df_agg.to_markdown(filename_base + variant_name + ".md", index=True)
 
     def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's divide by the base task performance for each model/benchmark combination
@@ -102,11 +108,22 @@ class TableMaker:
                 lambda val: 100 * (val - 1)  # e.g., 0.9 -> -10
             )
 
+        # Capitalize scenario column
+        scenario_col = FIELD_SCENARIO.capitalize()
+        normalized_to_base = normalized_to_base.rename(
+            columns={FIELD_SCENARIO: scenario_col}
+        )
+
+        # Apply nice display names for benchmarks
+        normalized_to_base[FIELD_BENCHMARK] = normalized_to_base[FIELD_BENCHMARK].apply(
+            lambda bench_name: benchmarks_display_names[bench_name]
+        )
+
         # Make pivot table
         df_res = pd.pivot_table(
             normalized_to_base,
             values=[FIELD_METRIC_VALUE],
-            index=[FIELD_SCENARIO],
+            index=[scenario_col],
             columns=columns_to_show,
             aggfunc="mean",
             margins=True
