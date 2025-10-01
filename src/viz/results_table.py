@@ -105,7 +105,8 @@ class TableMaker:
     def _aggregate_by_scenario(self, df: pd.DataFrame, framework_filter: str,
                                columns_to_show: List[str],
                                show_change_as_percentage: bool = True,
-                               aggregation_func: str = "median") -> pd.DataFrame:
+                               aggregation_func: str = "median",
+                               bold_max: bool = True) -> pd.DataFrame:
         normalized_df = self._divide_by_baseline(df, framework_filter=framework_filter)
 
         # Optionally convert percentages to changes (e.g., 0.9 to -10% and 1.3 to +30%)
@@ -170,6 +171,22 @@ class TableMaker:
         if show_change_as_percentage:
             df_res = df_res.iloc[1:]  # remove baseline row
             df_res = df_res.map(lambda val: f"{'+' if val >= 0 else ''}{val:0.1f}%")  # e.g., 13 -> "+13%"
+
+        # Bold max entry for each row
+        if bold_max:
+            for row_idx, row in df_res.iterrows():
+                vals = [float(s.strip("%+")) for s in row]
+
+                max_idx = int(np.argmax(vals))
+                max_val = vals[max_idx]
+
+                # Only bold positive maxima
+                if max_val <= 0:
+                    continue
+
+                # Bold max value we identified (works only for Markdown)
+                max_col_name = row.index[max_idx]
+                df_res.loc[row_idx, max_col_name] = f"**{df_res.loc[row_idx, max_col_name]}**"
 
         return df_res
 
