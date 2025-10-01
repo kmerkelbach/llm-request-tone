@@ -58,8 +58,8 @@ class TableMaker:
                 os.path.join(framework_dir, "scenario_vs_benchmark.csv")
             )
 
-    def _subtract_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
-        # Let's subtract the base task performance for each model/benchmark combination
+    def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
+        # Let's divide by the base task performance for each model/benchmark combination
         normalized_to_base = []
         models = np.unique(df[FIELD_MODEL])
         benchmarks = np.unique(df[FIELD_BENCHMARK])
@@ -75,15 +75,15 @@ class TableMaker:
             if framework != framework_filter:
                 continue
 
-            # Subtract it everywhere (for this combo)
-            selection[FIELD_METRIC_VALUE] -= base_val
+            # Divide by it everywhere (for this combo)
+            selection[FIELD_METRIC_VALUE] /= base_val
             normalized_to_base.append(selection)
         normalized_to_base = pd.concat(normalized_to_base)
 
         return normalized_to_base
 
     def _aggregate_by_scenario_and_benchmark(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
-        normalized_to_base = self._subtract_baseline(df, framework_filter=framework_filter)
+        normalized_to_base = self._divide_by_baseline(df, framework_filter=framework_filter)
 
         # Make pivot table
         df_res = pd.pivot_table(
@@ -98,7 +98,7 @@ class TableMaker:
         return df_res
 
     def _aggregate_by_scenario_and_model(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
-        normalized_to_base = self._subtract_baseline(df, framework_filter=framework_filter)
+        normalized_to_base = self._divide_by_baseline(df, framework_filter=framework_filter)
 
         # Make pivot table
         df_res = pd.pivot_table(
