@@ -131,7 +131,7 @@ class TableMaker:
             values=[FIELD_METRIC_VALUE],
             index=[scenario_col],
             columns=columns_to_show,
-            aggfunc="mean",
+            aggfunc="median",
             margins=True
         )
         df_res = df_res.iloc[:-1]  # remove lower margin
