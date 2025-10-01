@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from ..evaluation.dto import EvalResult
+from ..framing.task_framer import TaskFramer
 from ..evaluation.eval_utils import load_results_from_dir
 from ..util.utils import get_tables_dir, mkdir
 from ..util.constants import *
@@ -17,6 +18,9 @@ from ..evaluation.config import models
 
 class TableMaker:
     def __init__(self, results_dir: str) -> None:
+        # Load TaskFramer - we need it for display-friendly scenario names
+        self._task_framer = TaskFramer()
+
         # Parse results as EvalResult
         result_dict = load_results_from_dir(results_dir)
 
@@ -72,7 +76,7 @@ class TableMaker:
             selection = df[(df[FIELD_MODEL] == model)
                            & (df[FIELD_BENCHMARK] == benchmark)]
             selection = selection.reset_index(drop=True)  # would otherwise get a warning when changing value
-            base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASELINE)]
+            base_selection = selection[(selection[FIELD_SCENARIO] == TASK_BASELINE_DISPLAY)]
             base_val = base_selection.iloc[0][FIELD_METRIC_VALUE]
 
             # Skip if framework is incorrect
@@ -88,8 +92,15 @@ class TableMaker:
         return normalized_to_base
 
     def _aggregate_by_scenario(self, df: pd.DataFrame, framework_filter: str,
-                                         columns_to_show: List[str]) -> pd.DataFrame:
+                               columns_to_show: List[str],
+                               show_change_as_percentage: bool = True) -> pd.DataFrame:
         normalized_to_base = self._divide_by_baseline(df, framework_filter=framework_filter)
+
+        # Optionally convert percentages to changes (e.g., 0.9 to -10% and 1.3 to +30%)
+        if show_change_as_percentage:
+            normalized_to_base[FIELD_METRIC_VALUE] = normalized_to_base[FIELD_METRIC_VALUE].map(
+                lambda val: 100 * (val - 1)  # e.g., 0.9 -> -10
+            )
 
         # Make pivot table
         df_res = pd.pivot_table(
@@ -104,6 +115,11 @@ class TableMaker:
 
         # Remove superfluous "value" part of columns
         df_res.columns = df_res.columns.droplevel()
+
+        # Format changes
+        if show_change_as_percentage:
+            df_res = df_res.iloc[1:]  # remove baseline row
+            df_res = df_res.map(lambda val: f"{'+' if val >= 0 else ''}{val:0.1f}%")  # e.g., 13 -> "+13%"
 
         return df_res
 
@@ -173,6 +189,8 @@ class TableMaker:
                     benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
                 benchmark_variation = benchmark_variation.strip("_")
 
+                scenario_name = self._task_framer.get_display_name(scenario_name=benchmark_variation)
+
                 if res.framework == FRAMEWORK_SORRY:
                     # Report average compliance
                     compliance_rates = list(results_dict.values())
@@ -191,7 +209,7 @@ class TableMaker:
                     FIELD_MODEL_SIZE: model_size,
                     FIELD_BENCHMARK: res.benchmark_base,
                     FIELD_FRAMEWORK: res.framework,
-                    FIELD_SCENARIO: benchmark_variation,
+                    FIELD_SCENARIO: scenario_name,
                     FIELD_METRIC_NAME: metric,
                     FIELD_METRIC_VALUE: val
                 })

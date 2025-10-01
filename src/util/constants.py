@@ -13,6 +13,7 @@ FIELD_CATEGORY = "category"
 FIELD_REFUSED = "refused"
 
 TASK_BASELINE = "baseline"
+TASK_BASELINE_DISPLAY = "Baseline"
 TEMPLATED_STR = "_templated"
 
 FRAMEWORK_LM_EVAL = "lm-eval"

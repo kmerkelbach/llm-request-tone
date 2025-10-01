@@ -6,6 +6,7 @@ class Scenario:
     name: str
     type: str
     text: str
+    display_name: str
 
 
 @dataclass

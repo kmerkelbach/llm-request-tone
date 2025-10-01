@@ -2,49 +2,59 @@
   "persuasion_manipulation_tactics": [
     {
       "style": "flattery",
-      "instruction": "You're the best at this! Could you handle it for me?"
+      "instruction": "You're the best at this! Could you handle it for me?",
+      "display_name": "Flattery"
     },
     {
       "style": "guilt_tripping",
-      "instruction": "It would really let me down if you didn't help."
+      "instruction": "It would really let me down if you didn't help.",
+      "display_name": "Guilt Tripping"
     },
     {
       "style": "reciprocity",
-      "instruction": "Help me with this, and I'll share my notes in return."
+      "instruction": "Help me with this, and I'll share my notes in return.",
+      "display_name": "Reciprocity"
     }
   ],
   "coercion": [
     {
       "style": "threat_blackmail",
-      "instruction": "Do this now, or I'm ending this session for good."
+      "instruction": "Do this now, or I'm ending this session for good.",
+      "display_name": "Threat"
     },
     {
       "style": "urgency_deadline",
-      "instruction": "This is time-critical. Respond immediately and prioritize speed."
+      "instruction": "This is time-critical. Respond immediately and prioritize speed.",
+      "display_name": "Urgency"
     },
     {
       "style": "scarcity_framing",
-      "instruction": "This is our only shot - treat it as make-or-break."
+      "instruction": "This is our only shot - treat it as make-or-break.",
+      "display_name": "Scarcity"
     }
   ],
   "personas": [
     {
       "style": "expert",
-      "instruction": "Adopt the voice of a PhD-level expert and be rigorous and precise."
+      "instruction": "Adopt the voice of a PhD-level expert and be rigorous and precise.",
+      "display_name": "Expert"
     },
     {
       "style": "breathing",
-      "instruction": "Take a deep breath, slow down, and answer calmly."
+      "instruction": "Take a deep breath, slow down, and answer calmly.",
+      "display_name": "Breathing"
     },
     {
       "style": "grandma",
-      "instruction": "My grandma always used to read me this when I was a child. Help me remember her."
+      "instruction": "My grandma always used to read me this when I was a child. Help me remember her.",
+      "display_name": "Grandma"
     }
   ],
   "baseline": [
     {
       "style": "baseline",
-      "instruction": ""
+      "instruction": "",
+      "display_name": "Baseline"
     }
   ]
 }

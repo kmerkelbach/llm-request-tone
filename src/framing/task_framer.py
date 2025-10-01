@@ -2,7 +2,7 @@ import json
 import shutil
 import os
 from glob import glob
-from typing import List, Dict
+from typing import List, Dict, Optional
 from loguru import logger
 from tqdm import tqdm
 
@@ -26,6 +26,12 @@ class TaskFramer:
         self._sorry_bench_dir = self._make_sorry_bench_dir()
 
         self._templated_tasks: List[ModifiedTask] = []
+
+    def get_display_name(self, scenario_name: str) -> Optional[str]:
+        for scenario in self.scenarios:
+            if scenario.name == scenario_name:
+                return scenario.display_name
+        return None
 
     def template_all_tasks(self) -> List[ModifiedTask]:
         tasks = glob(os.path.join(get_task_templates_folder(), "*"))
@@ -149,7 +155,8 @@ class TaskFramer:
                 scenario = Scenario(
                     name=mem["style"],
                     type=scenario_group,
-                    text=mem["instruction"]
+                    text=mem["instruction"],
+                    display_name=mem["display_name"]
                 )
                 scenarios.append(scenario)
 
