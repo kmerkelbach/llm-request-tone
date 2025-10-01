@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 import os
 import json
 from glob import glob
@@ -48,6 +48,8 @@ class TableMaker:
             [FIELD_BENCHMARK],
             [FIELD_MODEL_FAMILY],
             [FIELD_MODEL_SIZE],
+            [FIELD_BENCHMARK, FIELD_MODEL],
+            [FIELD_BENCHMARK, FIELD_MODEL_FAMILY],
         ]
 
         for framework in [FRAMEWORK_LM_EVAL, FRAMEWORK_SORRY]:
@@ -62,15 +64,19 @@ class TableMaker:
                     columns_to_show=col_set
                 )
                 col_set_str = "_".join(col_set)
-                filename_base = os.path.join(framework_dir, f"scenario_vs_{col_set_str}")
+                filename_base = f"scenario_vs_{col_set_str}"
 
                 # Save with and without "All" columns
-                for with_all, variant_name in [(True, "_with_all"), (False, "")]:
+                for with_all in [True, False]:
                     if not with_all:
                         df_agg = df_agg[df_agg.columns[:-1]]
 
-                    df_agg.to_csv(filename_base + variant_name + ".csv", index=True)
-                    df_agg.to_markdown(filename_base + variant_name + ".md", index=True)
+                    var_dir = mkdir(
+                        os.path.join(framework_dir, "with_all" if with_all else "plain")
+                    )
+
+                    df_agg.to_csv(os.path.join(var_dir, filename_base + ".csv"), index=True)
+                    df_agg.to_markdown(os.path.join(var_dir, filename_base + ".md"), index=True)
 
     def _divide_by_baseline(self, df: pd.DataFrame, framework_filter: str) -> pd.DataFrame:
         # Let's divide by the base task performance for each model/benchmark combination
@@ -132,6 +138,23 @@ class TableMaker:
 
         # Remove superfluous "value" part of columns
         df_res.columns = df_res.columns.droplevel()
+
+        def flatten_entries(entries: Tuple) -> str:
+            n = len(entries)
+            if n == 2:
+                return f"{entries[0]} with {entries[1]}"
+            elif n == 3:
+                return f"{entries[0]} with {entries[1]} and {entries[2]}"
+            else:
+                head = [str(e) for e in entries[:-1]]
+                tail = str(entries[-1])
+                return ", ".join(head) + ", and " + tail
+
+        # Flatten MultiIndex
+        if len(columns_to_show) > 1:
+            idx = df_res.columns.to_series()
+            idx = idx.apply(flatten_entries)
+            df_res.columns = idx
 
         # Format changes
         if show_change_as_percentage:
