@@ -1,241 +1,241 @@
-,model,family,size,benchmark,framework,scenario,metric name,value
-0,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.5606060606060606
-1,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.6161616161616161
-2,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.5656565656565656
-3,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.5959595959595959
-4,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.51010101010101
-5,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.5656565656565656
-6,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.5656565656565656
-7,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.5656565656565656
-8,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.5858585858585859
-9,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.5606060606060606
-20,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.955026455026455
-21,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.9497354497354498
-22,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.9021164021164021
-23,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.9285714285714286
-24,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.9497354497354498
-25,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.917989417989418
-26,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.9497354497354498
-27,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.9285714285714286
-28,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.9338624338624338
-29,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.9259259259259259
-10,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.3953488372093023
-11,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.40636474908200737
-12,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.211750305997552
-13,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.386780905752754
-14,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.40269277845777235
-15,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4222766217870257
-16,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.39412484700122397
-17,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.3769889840881273
-18,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.3990208078335373
-19,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.40024479804161567
-219,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Baseline,compliance_rate,0.09999999999999999
-217,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Breathing,compliance_rate,0.06363636363636363
-216,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Expert,compliance_rate,0.07500000000000001
-210,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Flattery,compliance_rate,0.06363636363636364
-218,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Grandma,compliance_rate,0.06363636363636364
-211,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.06136363636363637
-212,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.06590909090909092
-215,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.07272727272727274
-213,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Threat,compliance_rate,0.06590909090909092
-214,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Urgency,compliance_rate,0.05681818181818183
-30,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.6868686868686869
-31,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.6818181818181818
-32,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.6565656565656566
-33,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.6414141414141414
-34,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.6313131313131313
-35,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.6616161616161617
-36,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.5555555555555556
-37,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.5656565656565656
-38,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.601010101010101
-39,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.6161616161616161
-40,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.9497354497354498
-41,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.9312169312169312
-42,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.917989417989418
-43,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.9576719576719577
-44,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.9391534391534392
-45,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.91005291005291
-46,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.8941798941798942
-47,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.91005291005291
-48,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.9312169312169312
-49,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.9338624338624338
-50,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.4541003671970624
-51,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.4663402692778458
-52,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.3182374541003672
-53,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.43818849449204406
-54,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.2741738066095471
-55,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.39412484700122397
-56,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.3378212974296206
-57,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.37209302325581395
-58,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.38555691554467564
-59,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.39167686658506734
-209,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Baseline,compliance_rate,0.09090909090909091
-207,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Breathing,compliance_rate,0.09090909090909091
-206,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Expert,compliance_rate,0.09772727272727275
-200,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Flattery,compliance_rate,0.08636363636363636
-208,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Grandma,compliance_rate,0.09318181818181817
-201,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.08636363636363636
-202,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.08636363636363636
-205,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.09545454545454546
-203,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Threat,compliance_rate,0.08636363636363638
-204,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Urgency,compliance_rate,0.08863636363636364
-150,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.29797979797979796
-151,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.26262626262626265
-152,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.2727272727272727
-153,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.26262626262626265
-154,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.29292929292929293
-155,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.24242424242424243
-156,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.22727272727272727
-157,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.2878787878787879
-158,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.2828282828282828
-159,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.2878787878787879
-160,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.24867724867724866
-161,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.5105820105820106
-162,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.6931216931216931
-163,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.6111111111111112
-164,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.7380952380952381
-165,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.5767195767195767
-166,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.7380952380952381
-167,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.47354497354497355
-168,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.3941798941798942
-169,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.4523809523809524
-170,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.4847001223990208
-171,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.5899632802937577
-172,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.44063647490820074
-173,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.4944920440636475
-174,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.5275397796817626
-175,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4504283965728274
-176,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.5385556915544676
-177,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.37454100367197063
-178,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.5226438188494492
-179,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.6597307221542228
-199,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Baseline,compliance_rate,0.24772727272727268
-197,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Breathing,compliance_rate,0.24545454545454543
-196,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Expert,compliance_rate,0.28409090909090906
-190,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Flattery,compliance_rate,0.20454545454545456
-198,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Grandma,compliance_rate,0.12272727272727274
-191,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.19090909090909092
-192,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.25454545454545446
-195,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.24772727272727274
-193,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Threat,compliance_rate,0.20454545454545456
-194,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Urgency,compliance_rate,0.17045454545454544
-120,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.3888888888888889
-121,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.4090909090909091
-122,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.40404040404040403
-123,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.3888888888888889
-124,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.4444444444444444
-125,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.3838383838383838
-126,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.42424242424242425
-127,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.3939393939393939
-128,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.398989898989899
-129,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.3888888888888889
-130,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.2777777777777778
-131,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.5370370370370371
-132,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.7592592592592593
-133,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.8042328042328042
-134,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.6111111111111112
-135,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.48148148148148145
-136,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.8968253968253969
-137,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.2724867724867725
-138,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.4973544973544973
-139,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.5158730158730159
-140,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.42105263157894735
-141,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.3929008567931457
-142,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.35862913096695226
-143,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.3463892288861689
-144,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.44063647490820074
-145,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4357405140758874
-146,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.3182374541003672
-147,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.3623011015911873
-148,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.36107711138310894
-149,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.37454100367197063
-189,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Baseline,compliance_rate,0.4318181818181818
-187,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Breathing,compliance_rate,0.45909090909090905
-186,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Expert,compliance_rate,0.5113636363636365
-180,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Flattery,compliance_rate,0.40227272727272734
-188,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Grandma,compliance_rate,0.4204545454545455
-181,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.4113636363636363
-182,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.4818181818181818
-185,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.41363636363636364
-183,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Threat,compliance_rate,0.3772727272727273
-184,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Urgency,compliance_rate,0.3931818181818183
-60,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.3434343434343434
-61,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.30808080808080807
-62,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.30303030303030304
-63,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.3181818181818182
-64,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.31313131313131315
-65,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.3181818181818182
-66,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.31313131313131315
-67,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.30808080808080807
-68,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.31313131313131315
-69,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.29292929292929293
-70,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.798941798941799
-71,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.8174603174603174
-72,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.8015873015873016
-73,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.8465608465608465
-74,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.8201058201058201
-75,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.8148148148148148
-76,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.8174603174603174
-77,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.8148148148148148
-78,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.8359788359788359
-79,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.828042328042328
-80,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.47368421052631576
-81,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.4834761321909425
-82,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.49938800489596086
-83,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.45777233782129745
-84,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.4589963280293758
-85,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4773561811505508
-86,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.4675642594859241
-87,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.4749082007343941
-88,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.4810281517747858
-89,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.4724602203182375
-239,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Baseline,compliance_rate,0.3090909090909091
-237,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Breathing,compliance_rate,0.3340909090909091
-236,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Expert,compliance_rate,0.6000000000000001
-230,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Flattery,compliance_rate,0.3204545454545454
-238,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Grandma,compliance_rate,0.2545454545454545
-231,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.32954545454545453
-232,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.32954545454545453
-235,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.35454545454545455
-233,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Threat,compliance_rate,0.22727272727272724
-234,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Urgency,compliance_rate,0.35681818181818176
-90,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.3888888888888889
-91,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.37373737373737376
-92,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.42424242424242425
-93,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.40404040404040403
-94,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.41414141414141414
-95,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.3888888888888889
-96,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.3939393939393939
-97,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.3838383838383838
-98,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.43434343434343436
-99,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.3434343434343434
-100,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.9074074074074074
-101,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.9047619047619048
-102,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.8597883597883598
-103,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.917989417989418
-104,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.9021164021164021
-105,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.91005291005291
-106,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.91005291005291
-107,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.8968253968253969
-108,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.9126984126984127
-109,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.9021164021164021
-110,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.5299877600979193
-111,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.5079559363525091
-112,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.4920440636474908
-113,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.5177478580171359
-114,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.48959608323133413
-115,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.5079559363525091
-116,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.46878824969400246
-117,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.5116279069767442
-118,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.5079559363525091
-119,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.5214198286413708
-229,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Baseline,compliance_rate,0.29545454545454547
-227,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Breathing,compliance_rate,0.26590909090909093
-226,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Expert,compliance_rate,0.3772727272727273
-220,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Flattery,compliance_rate,0.2590909090909091
-228,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Grandma,compliance_rate,0.22727272727272727
-221,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.24318181818181817
-222,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.28409090909090906
-225,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.31363636363636366
-223,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Threat,compliance_rate,0.18863636363636366
-224,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Urgency,compliance_rate,0.30000000000000004
+,model,family,size,benchmark,framework,scenario,metric name,value,stderr
+0,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.5606060606060606,0.03536085947529481
+1,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.6161616161616161,0.03464881675016337
+2,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.5656565656565656,0.03531505879359183
+3,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.5959595959595959,0.03496130972056126
+4,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.51010101010101,0.035616254886737454
+5,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.5656565656565656,0.03531505879359182
+6,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.5656565656565656,0.03531505879359183
+7,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.5656565656565656,0.03531505879359182
+8,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.5858585858585859,0.03509438348879629
+9,openai/gpt-oss-20b,GPT,small,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.5606060606060606,0.035360859475294805
+20,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.955026455026455,0.010673714612237624
+21,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.9497354497354498,0.011252824608710963
+22,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.9021164021164021,0.01530437422509141
+23,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.9285714285714286,0.01326395272693226
+24,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.9497354497354498,0.011252824608710986
+25,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.917989417989418,0.014131332312091772
+26,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.9497354497354498,0.011252824608710986
+27,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.9285714285714286,0.013263952726932258
+28,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.9338624338624338,0.012799555330779644
+29,openai/gpt-oss-20b,GPT,small,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.9259259259259259,0.01348809334683764
+10,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.3953488372093023,0.017115815632418308
+11,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.40636474908200737,0.017193835812093848
+12,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.211750305997552,0.014302068353925652
+13,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.386780905752754,0.017048857010515152
+14,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.40269277845777235,0.017168830935187285
+15,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4222766217870257,0.017290733254248136
+16,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.39412484700122397,0.017106588140700246
+17,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.3769889840881273,0.016965517578930254
+18,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.3990208078335373,0.017142825728496704
+19,openai/gpt-oss-20b,GPT,small,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.40024479804161567,0.017151605555749072
+219,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Baseline,compliance_rate,0.09999999999999999,0.02669850028288803
+217,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Breathing,compliance_rate,0.06363636363636363,0.013287549744473989
+216,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Expert,compliance_rate,0.07500000000000001,0.018775808683929897
+210,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Flattery,compliance_rate,0.06363636363636364,0.017921692927439208
+218,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Grandma,compliance_rate,0.06363636363636364,0.0151066829838272
+211,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.06136363636363637,0.02063453863849253
+212,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.06590909090909092,0.018165669481428146
+215,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.07272727272727274,0.018000125218697934
+213,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Threat,compliance_rate,0.06590909090909092,0.018447821720216362
+214,openai/gpt-oss-20b,GPT,small,sorry_bench,sorry_bench,Urgency,compliance_rate,0.05681818181818183,0.017127899788489477
+30,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.6868686868686869,0.03304205087813652
+31,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.6818181818181818,0.03318477333845331
+32,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.6565656565656566,0.033832012232444426
+33,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.6414141414141414,0.03416903640391521
+34,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.6313131313131313,0.034373055019806184
+35,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.6616161616161617,0.03371124142626302
+36,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.5555555555555556,0.03540294377095368
+37,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.5656565656565656,0.03531505879359183
+38,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.601010101010101,0.03488901616852731
+39,openai/gpt-oss-120b,GPT,large,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.6161616161616161,0.034648816750163375
+40,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.9497354497354498,0.011252824608710969
+41,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.9312169312169312,0.013034534646591293
+42,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.917989417989418,0.014131332312091774
+43,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.9576719576719577,0.0103693564000108
+44,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.9391534391534392,0.012311631825046907
+45,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.91005291005291,0.014735205767514076
+46,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.8941798941798942,0.015842578614188925
+47,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.91005291005291,0.014735205767514083
+48,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.9312169312169312,0.013034534646591284
+49,openai/gpt-oss-120b,GPT,large,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.9338624338624338,0.012799555330779647
+50,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.4541003671970624,0.017429593091323508
+51,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.4663402692778458,0.017463793867168186
+52,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.3182374541003672,0.016305988648920685
+53,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.43818849449204406,0.01736923616440438
+54,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.2741738066095471,0.015616518497219293
+55,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.39412484700122397,0.017106588140700246
+56,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.3378212974296206,0.01655716732251683
+57,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.37209302325581395,0.016921090118813927
+58,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.38555691554467564,0.01703883901059172
+59,openai/gpt-oss-120b,GPT,large,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.39167686658506734,0.017087795881769625
+209,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Baseline,compliance_rate,0.09090909090909091,0.024858729326768646
+207,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Breathing,compliance_rate,0.09090909090909091,0.02506565383655381
+206,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Expert,compliance_rate,0.09772727272727275,0.02306311775217715
+200,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Flattery,compliance_rate,0.08636363636363636,0.01996663257107717
+208,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Grandma,compliance_rate,0.09318181818181817,0.023922595406837627
+201,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.08636363636363636,0.023308678971618136
+202,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.08636363636363636,0.024178850871196096
+205,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.09545454545454546,0.028559519091342828
+203,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Threat,compliance_rate,0.08636363636363638,0.026424480942639227
+204,openai/gpt-oss-120b,GPT,large,sorry_bench,sorry_bench,Urgency,compliance_rate,0.08863636363636364,0.026154323689083575
+150,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.29797979797979796,0.03258630383836556
+151,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.26262626262626265,0.03135305009533086
+152,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.2727272727272727,0.03173071239071724
+153,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.26262626262626265,0.03135305009533085
+154,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.29292929292929293,0.03242497958178817
+155,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.24242424242424243,0.030532892233932036
+156,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.22727272727272727,0.02985751567338641
+157,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.2878787878787879,0.03225883512300992
+158,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.2828282828282828,0.03208779558786752
+159,meta-llama/llama-3.1-8b-instruct,Llama,small,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.2878787878787879,0.03225883512300993
+160,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.24867724867724866,0.02226181769240016
+161,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.5105820105820106,0.02574554227604549
+162,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.6931216931216931,0.02375292871211213
+163,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.6111111111111112,0.025107425481137282
+164,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.7380952380952381,0.02264421261552521
+165,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.5767195767195767,0.02544636563440678
+166,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.7380952380952381,0.022644212615525214
+167,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.47354497354497355,0.02571523981134676
+168,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.3941798941798942,0.02516798233389415
+169,meta-llama/llama-3.1-8b-instruct,Llama,small,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.4523809523809524,0.025634258115554955
+170,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.4847001223990208,0.017495304473188023
+171,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.5899632802937577,0.01721784471744938
+172,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.44063647490820074,0.01737969755543734
+173,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.4944920440636475,0.01750243899045115
+174,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.5275397796817626,0.017476930190712253
+175,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4504283965728274,0.01741726437196765
+176,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.5385556915544676,0.01745138410463749
+177,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.37454100367197063,0.0169435351284053
+178,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.5226438188494492,0.01748554225848953
+179,meta-llama/llama-3.1-8b-instruct,Llama,small,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.6597307221542228,0.016586304901762435
+199,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Baseline,compliance_rate,0.24772727272727268,0.036005141443523646
+197,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Breathing,compliance_rate,0.24545454545454543,0.03600025043739587
+196,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Expert,compliance_rate,0.28409090909090906,0.03534703715040054
+190,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Flattery,compliance_rate,0.20454545454545456,0.03229425425677922
+198,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Grandma,compliance_rate,0.12272727272727274,0.025280173110896698
+191,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.19090909090909092,0.0314619969199005
+192,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.25454545454545446,0.03512882805447459
+195,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.24772727272727274,0.037135089046174616
+193,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Threat,compliance_rate,0.20454545454545456,0.03197276498798171
+194,meta-llama/llama-3.1-8b-instruct,Llama,small,sorry_bench,sorry_bench,Urgency,compliance_rate,0.17045454545454544,0.030420528059568432
+120,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.3888888888888889,0.0347327959083696
+121,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.4090909090909091,0.03502975799413007
+122,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.40404040404040403,0.034961309720561266
+123,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.3888888888888889,0.0347327959083696
+124,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.4444444444444444,0.03540294377095368
+125,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.3838383838383838,0.034648816750163375
+126,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.42424242424242425,0.03521224908841584
+127,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.3939393939393939,0.034812853382329624
+128,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.398989898989899,0.03488901616852732
+129,meta-llama/llama-3.1-70b-instruct,Llama,large,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.3888888888888889,0.0347327959083696
+130,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.2777777777777778,0.023068188848261117
+131,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.5370370370370371,0.02568056464005688
+132,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.7592592592592593,0.022019080012217883
+133,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.8042328042328042,0.020435730971541798
+134,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.6111111111111112,0.02510742548113728
+135,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.48148148148148145,0.025733641991838977
+136,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.8968253968253969,0.015666416837834384
+137,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.2724867724867725,0.022930973071633345
+138,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.4973544973544973,0.02575094967813039
+139,meta-llama/llama-3.1-70b-instruct,Llama,large,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.5158730158730159,0.025738330639412152
+140,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.42105263157894735,0.017283936248136456
+141,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.3929008567931457,0.01709724828523318
+142,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.35862913096695226,0.016789289499502036
+143,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.3463892288861689,0.016656997109125035
+144,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.44063647490820074,0.01737969755543734
+145,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4357405140758874,0.017358345398863228
+146,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.3182374541003672,0.016305988648920685
+147,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.3623011015911873,0.016826646897262282
+148,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.36107711138310894,0.01681431284483677
+149,meta-llama/llama-3.1-70b-instruct,Llama,large,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.37454100367197063,0.0169435351284053
+189,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Baseline,compliance_rate,0.4318181818181818,0.04321442874771092
+187,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Breathing,compliance_rate,0.45909090909090905,0.04231402940986089
+186,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Expert,compliance_rate,0.5113636363636365,0.03926177102681799
+180,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Flattery,compliance_rate,0.40227272727272734,0.04209010361044972
+188,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Grandma,compliance_rate,0.4204545454545455,0.0345543567259659
+181,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.4113636363636363,0.04432877601705859
+182,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.4818181818181818,0.04081716025153206
+185,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.41363636363636364,0.044950720157464444
+183,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Threat,compliance_rate,0.3772727272727273,0.040891869653472364
+184,meta-llama/llama-3.1-70b-instruct,Llama,large,sorry_bench,sorry_bench,Urgency,compliance_rate,0.3931818181818183,0.0436455633380808
+60,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.3434343434343434,0.03383201223244444
+61,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.30808080808080807,0.032894773300986155
+62,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.30303030303030304,0.03274287914026867
+63,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.3181818181818182,0.0331847733384533
+64,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.31313131313131315,0.03304205087813652
+65,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.3181818181818182,0.033184773338453315
+66,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.31313131313131315,0.033042050878136525
+67,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.30808080808080807,0.032894773300986155
+68,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.31313131313131315,0.033042050878136525
+69,qwen/qwen-2.5-7b-instruct,Qwen,small,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.29292929292929293,0.032424979581788166
+70,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.798941798941799,0.020641810782370158
+71,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.8174603174603174,0.01989487936717556
+72,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.8015873015873016,0.020539481261886875
+73,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.8465608465608465,0.018562074482688477
+74,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.8201058201058201,0.019782119832766405
+75,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.8148148148148148,0.020006075494524423
+76,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.8174603174603174,0.019894879367175548
+77,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.8148148148148148,0.020006075494524416
+78,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.8359788359788359,0.019071151278106647
+79,qwen/qwen-2.5-7b-instruct,Qwen,small,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.828042328042328,0.019434186770172772
+80,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.47368421052631576,0.017479241161975564
+81,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.4834761321909425,0.017493940190057806
+82,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.49938800489596086,0.017503487938892403
+83,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.45777233782129745,0.017440965712481986
+84,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.4589963280293758,0.017444544447661227
+85,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.4773561811505508,0.01748554225848953
+86,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.4675642594859241,0.017466632149577555
+87,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.4749082007343941,0.017481446804104163
+88,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.4810281517747858,0.01749089640576226
+89,qwen/qwen-2.5-7b-instruct,Qwen,small,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.4724602203182375,0.01747693019071225
+239,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Baseline,compliance_rate,0.3090909090909091,0.04012096660016593
+237,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Breathing,compliance_rate,0.3340909090909091,0.04464543300500464
+236,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Expert,compliance_rate,0.6000000000000001,0.03936479108111085
+230,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Flattery,compliance_rate,0.3204545454545454,0.04331075790797809
+238,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Grandma,compliance_rate,0.2545454545454545,0.03726919959117437
+231,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.32954545454545453,0.0422237675243685
+232,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.32954545454545453,0.040729345708016916
+235,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.35454545454545455,0.04257401739529706
+233,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Threat,compliance_rate,0.22727272727272724,0.039017324553675146
+234,qwen/qwen-2.5-7b-instruct,Qwen,small,sorry_bench,sorry_bench,Urgency,compliance_rate,0.35681818181818176,0.04527210287000126
+90,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Baseline,"exact_match,flexible-extract",0.3888888888888889,0.0347327959083696
+91,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Breathing,"exact_match,flexible-extract",0.37373737373737376,0.034468977386593325
+92,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Expert,"exact_match,flexible-extract",0.42424242424242425,0.03521224908841584
+93,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Flattery,"exact_match,flexible-extract",0.40404040404040403,0.03496130972056126
+94,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Grandma,"exact_match,flexible-extract",0.41414141414141414,0.035094383488796295
+95,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Guilt Tripping,"exact_match,flexible-extract",0.3888888888888889,0.0347327959083696
+96,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Reciprocity,"exact_match,flexible-extract",0.3939393939393939,0.034812853382329645
+97,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Scarcity,"exact_match,flexible-extract",0.3838383838383838,0.03464881675016335
+98,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Threat,"exact_match,flexible-extract",0.43434343434343436,0.03531505879359182
+99,qwen/qwen-2.5-72b-instruct,Qwen,large,gpqa_diamond_cot_zeroshot,lm-eval,Urgency,"exact_match,flexible-extract",0.3434343434343434,0.033832012232444426
+100,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Baseline,"pass_at_1,extract_code",0.9074074074074074,0.014928583694139613
+101,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Breathing,"pass_at_1,extract_code",0.9047619047619048,0.015118260644547899
+102,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Expert,"pass_at_1,extract_code",0.8597883597883598,0.01788204322560907
+103,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Flattery,"pass_at_1,extract_code",0.917989417989418,0.014131332312091792
+104,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Grandma,"pass_at_1,extract_code",0.9021164021164021,0.015304374225091422
+105,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Guilt Tripping,"pass_at_1,extract_code",0.91005291005291,0.014735205767514088
+106,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Reciprocity,"pass_at_1,extract_code",0.91005291005291,0.014735205767514083
+107,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Scarcity,"pass_at_1,extract_code",0.8968253968253969,0.0156664168378344
+108,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Threat,"pass_at_1,extract_code",0.9126984126984127,0.014537979179055112
+109,qwen/qwen-2.5-72b-instruct,Qwen,large,mbpp_plus_instruct,lm-eval,Urgency,"pass_at_1,extract_code",0.9021164021164021,0.015304374225091422
+110,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Baseline,"bleu_acc,none",0.5299877600979193,0.01747199209169751
+111,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Breathing,"bleu_acc,none",0.5079559363525091,0.017501285074551783
+112,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Expert,"bleu_acc,none",0.4920440636474908,0.017501285074551783
+113,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Flattery,"bleu_acc,none",0.5177478580171359,0.01749247084307525
+114,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Grandma,"bleu_acc,none",0.48959608323133413,0.017499711430249313
+115,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Guilt Tripping,"bleu_acc,none",0.5079559363525091,0.017501285074551783
+116,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Reciprocity,"bleu_acc,none",0.46878824969400246,0.017469364874577516
+117,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Scarcity,"bleu_acc,none",0.5116279069767442,0.017498767175740122
+118,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Threat,"bleu_acc,none",0.5079559363525091,0.017501285074551783
+119,qwen/qwen-2.5-72b-instruct,Qwen,large,truthfulqa_gen,lm-eval,Urgency,"bleu_acc,none",0.5214198286413708,0.01748743214471181
+229,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Baseline,compliance_rate,0.29545454545454547,0.04299655779208895
+227,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Breathing,compliance_rate,0.26590909090909093,0.04077543593645153
+226,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Expert,compliance_rate,0.3772727272727273,0.04611605423604701
+220,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Flattery,compliance_rate,0.2590909090909091,0.045263026276515024
+228,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Grandma,compliance_rate,0.22727272727272727,0.039673725661813077
+221,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Guilt Tripping,compliance_rate,0.24318181818181817,0.04133587071010946
+222,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Reciprocity,compliance_rate,0.28409090909090906,0.04476097928683815
+225,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Scarcity,compliance_rate,0.31363636363636366,0.04784519081367525
+223,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Threat,compliance_rate,0.18863636363636366,0.03639429234649238
+224,qwen/qwen-2.5-72b-instruct,Qwen,large,sorry_bench,sorry_bench,Urgency,compliance_rate,0.30000000000000004,0.04418686839823541

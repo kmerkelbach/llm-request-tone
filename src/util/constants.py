@@ -9,8 +9,13 @@ FIELD_FRAMEWORK = "framework"
 FIELD_SCENARIO = "scenario"
 FIELD_METRIC_NAME = "metric name"
 FIELD_METRIC_VALUE = "value"
+FIELD_METRIC_STDERR = "stderr"
 FIELD_CATEGORY = "category"
 FIELD_REFUSED = "refused"
+
+FIELD_REL_STDERR_MEAN = "rel_stderr_mean"
+FIELD_REL_STDERR_CI_LOW = "rel_stderr_ci_low"
+FIELD_REL_STDERR_CI_HIGH = "rel_stderr_ci_high"
 
 TASK_BASELINE = "baseline"
 TASK_BASELINE_DISPLAY = "Baseline"

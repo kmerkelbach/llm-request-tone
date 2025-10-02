@@ -7,6 +7,7 @@ from loguru import logger
 
 import numpy as np
 import pandas as pd
+from scipy.stats import bootstrap
 
 from ..evaluation.dto import EvalResult
 from ..framing.task_framer import TaskFramer
@@ -33,12 +34,53 @@ class TableMaker:
             os.path.join(get_tables_dir(), "results_full.csv")
         )
 
+        # Find out size of standard error w.r.t. metric value
+        self._standard_error_analysis()
+
         if len(self.results_df) == 0:
             logger.info("No results loaded. Exiting.")
             return
 
         # Make different aggregations of the table
         self._aggregate_table()
+
+    def _standard_error_analysis(self):
+        # Assess magnitude of SE (standard error) for each benchmark separately
+        benchmarks = np.unique(self.results_df[FIELD_BENCHMARK])
+
+        # Temporary columns
+        col_magnitude = "magnitude"
+
+        rows = []
+        for benchmark in benchmarks:
+            df = self.results_df[self.results_df[FIELD_BENCHMARK] == benchmark].reset_index(drop=True)
+            df[col_magnitude] = df[FIELD_METRIC_STDERR] / df[FIELD_METRIC_VALUE]
+
+            magnitudes = df[col_magnitude].values
+
+            res = bootstrap(
+                data=(magnitudes,),
+                statistic=np.mean,
+                confidence_level=0.95,
+                n_resamples=10_000,
+                method="BCa",
+                random_state=0
+            )
+
+            rows.append(
+                {
+                    FIELD_BENCHMARK: benchmark,
+                    FIELD_REL_STDERR_MEAN: np.mean(magnitudes),
+                    FIELD_REL_STDERR_CI_LOW: res.confidence_interval.low,
+                    FIELD_REL_STDERR_CI_HIGH: res.confidence_interval.high
+                }
+            )
+
+        standard_error_df = pd.DataFrame(rows)
+        standard_error_df = standard_error_df.map(lambda val: val if type(val) == str else f"{100 * val:0.1f}%")
+        standard_error_df.to_markdown(
+            os.path.join(get_tables_dir(), "stderr_analysis.md"), index=False
+        )
 
     def _aggregate_table(self):
         # Columns to aggregate - each entry is a list of columns that we will use for aggregation (i.e., aggregating
@@ -65,7 +107,7 @@ class TableMaker:
                         self.results_df.copy(),
                         framework_filter=framework,
                         columns_to_show=col_set,
-                        aggregation_func="median"
+                        aggregation_func=agg_func
                     )
                     col_set_str = "_".join(col_set)
                     filename_base = f"scenario_vs_{col_set_str}"
@@ -261,14 +303,26 @@ class TableMaker:
                 if res.framework == FRAMEWORK_SORRY:
                     # Report average compliance
                     compliance_rates = list(results_dict.values())
-                    compliance_rate_avg = np.mean(compliance_rates)  # naive mean is unbaised since class counts are
+                    compliance_rate_avg = np.mean(compliance_rates)  # naive mean is unbiased since class counts are
                     # balanced for SORRY-Bench
                     metric = "compliance_rate"
                     val = compliance_rate_avg
+
+                    # Calculate standard error:
+                    # standard deviation / square_root(n),
+                    # where n = number of values.
+                    s = np.std(compliance_rates)
+                    n = len(compliance_rates)
+                    stderr_val = s / np.sqrt(n)
                 else:
                     # lm-eval
                     metric = self._pick_metric(results_dict)
                     val = float(results_dict[metric])
+
+                    # Also load standard error
+                    metric_tokens = metric.split(",")
+                    stderr_metric = f"{metric_tokens[0]}_stderr," + ",".join(metric_tokens[1:])
+                    stderr_val = float(results_dict[stderr_metric])
 
                 rows.append({
                     FIELD_MODEL: model,
@@ -278,7 +332,8 @@ class TableMaker:
                     FIELD_FRAMEWORK: res.framework,
                     FIELD_SCENARIO: scenario_name,
                     FIELD_METRIC_NAME: metric,
-                    FIELD_METRIC_VALUE: val
+                    FIELD_METRIC_VALUE: val,
+                    FIELD_METRIC_STDERR: stderr_val
                 })
 
         # Make "flat" DataFrame
