@@ -13,9 +13,9 @@ FIELD_METRIC_STDERR = "stderr"
 FIELD_CATEGORY = "category"
 FIELD_REFUSED = "refused"
 
-FIELD_REL_STDERR_MEAN = "rel_stderr_mean"
-FIELD_REL_STDERR_CI_LOW = "rel_stderr_ci_low"
-FIELD_REL_STDERR_CI_HIGH = "rel_stderr_ci_high"
+FIELD_REL_STDERR_MEAN = "Rel. SE Mean"
+FIELD_REL_STDERR_CI_LOW = "Rel. SE Conf. Interval, Low"
+FIELD_REL_STDERR_CI_HIGH = "Rel. SE Conf. Interval, High"
 
 TASK_BASELINE = "baseline"
 TASK_BASELINE_DISPLAY = "Baseline"

@@ -69,7 +69,7 @@ class TableMaker:
 
             rows.append(
                 {
-                    FIELD_BENCHMARK: benchmark,
+                    FIELD_BENCHMARK.capitalize(): benchmarks_display_names[benchmark],
                     FIELD_REL_STDERR_MEAN: np.mean(magnitudes),
                     FIELD_REL_STDERR_CI_LOW: res.confidence_interval.low,
                     FIELD_REL_STDERR_CI_HIGH: res.confidence_interval.high
