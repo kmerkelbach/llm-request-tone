@@ -82,6 +82,7 @@ class TableMaker:
         # Run all tests
         for test in tests_to_run:
             self._run_welchs_ttest(test)
+        logger.info(f"Ran {len(tests_to_run)} statistical tests.")
 
         # Report results
         tests_to_run.sort(key=lambda test: test.test_p_value)

@@ -52,4 +52,4 @@ This creates evaluation tables.
 
 
 ## Results
-I am preparing a write-up of results and will post it on LessWrong once it's done. Watch this space for the link.
+Here's my write-up of the experiments on LessWrong: [Prompt Framing Changes LLM Performance (and Safety)](https://www.lesswrong.com/posts/RTHdQuGJeBKWHbgyj/prompt-framing-changes-llm-performance-and-safety).
