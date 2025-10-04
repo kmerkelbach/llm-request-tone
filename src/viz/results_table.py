@@ -47,7 +47,7 @@ class TableMaker:
         # Perform statistical analysis
         self._analyze_stats()
 
-    def _analyze_stats(self, alpha: float = 0.05):
+    def _analyze_stats(self, alpha: float = 0.05, do_bonferroni_correction: bool = True):
         df = self.results_df
 
         # Remember tests to run
@@ -68,16 +68,16 @@ class TableMaker:
                         group_b_name=val_b,
                         group_b_vals=group_b_vals,
                         domain_name=col,
-                        test_alpha=None,
+                        test_alpha=alpha,
                         test_p_value=None,
                         test_is_significant=None
                     )
                 )
 
         # Apply Bonferroni correction (since we might be running a lot of tests)
-        alpha_corrected = alpha / len(tests_to_run)
-        for test in tests_to_run:
-            test.test_alpha = alpha_corrected
+        if do_bonferroni_correction:
+            for test in tests_to_run:
+                test.test_alpha /= len(tests_to_run)
 
         # Run all tests
         for test in tests_to_run:
