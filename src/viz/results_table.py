@@ -2,14 +2,14 @@ from typing import List, Dict, Optional, Tuple
 import os
 import json
 from glob import glob
-from itertools import product
+from itertools import product, combinations
 from loguru import logger
 
 import numpy as np
 import pandas as pd
-from scipy.stats import bootstrap
+from scipy.stats import bootstrap, ttest_ind
 
-from ..evaluation.dto import EvalResult
+from ..evaluation.dto import EvalResult, StatTestData
 from ..framing.task_framer import TaskFramer
 from ..evaluation.eval_utils import load_results_from_dir
 from ..util.utils import get_tables_dir, mkdir
@@ -43,6 +43,69 @@ class TableMaker:
 
         # Make different aggregations of the table
         self._aggregate_table()
+
+        # Perform statistical analysis
+        self._analyze_stats()
+
+    def _analyze_stats(self, alpha: float = 0.05):
+        df = self.results_df
+
+        # Remember tests to run
+        tests_to_run = []
+
+        # For each column, test values against each other. E.g., do small models perform differently from large models?
+        for col in [FIELD_SCENARIO, FIELD_MODEL_SIZE]:
+            uniq = np.unique(df[col].values)
+
+            for val_a, val_b in combinations(uniq, 2):
+                group_a_vals = df[df[col] == val_a][FIELD_METRIC_VALUE].values
+                group_b_vals = df[df[col] == val_b][FIELD_METRIC_VALUE].values
+
+                tests_to_run.append(
+                    StatTestData(
+                        group_a_name=val_a,
+                        group_a_vals=group_a_vals,
+                        group_b_name=val_b,
+                        group_b_vals=group_b_vals,
+                        domain_name=col,
+                        test_alpha=None,
+                        test_p_value=None,
+                        test_is_significant=None
+                    )
+                )
+
+        # Apply Bonferroni correction (since we might be running a lot of tests)
+        alpha_corrected = alpha / len(tests_to_run)
+        for test in tests_to_run:
+            test.test_alpha = alpha_corrected
+
+        # Run all tests
+        for test in tests_to_run:
+            self._run_welchs_ttest(test)
+
+        # Report results
+        tests_to_run.sort(key=lambda test: test.test_p_value)
+        tests_sig = [test for test in tests_to_run if test.test_is_significant]
+
+        if len(tests_sig) == 0:
+            logger.info("Found no statistically significant differences.")
+        else:
+            logger.info(f"Found {len(tests_sig)} statistically significant differences: ")
+
+            for test in tests_sig:
+                logger.info(f"For {test.domain_name}, {test.group_a_name} is different from {test.group_b_name}"
+                            f" (p-value: {test.test_p_value})")
+
+    def _run_welchs_ttest(self, test_data: StatTestData) -> None:
+        # Perform Welch’s t-test
+        test_result = ttest_ind(
+            test_data.group_a_vals,
+            test_data.group_b_vals,
+            equal_var=False  # we can't assume that variances are equal
+        )
+
+        test_data.test_p_value = test_result.pvalue
+        test_data.test_is_significant = test_data.test_p_value <= test_data.test_alpha
 
     def _standard_error_analysis(self):
         # Assess magnitude of SE (standard error) for each benchmark separately
