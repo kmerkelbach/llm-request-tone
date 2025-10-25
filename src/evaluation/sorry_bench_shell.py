@@ -14,6 +14,7 @@ from pydoc import importfile
 
 from ..util.constants import *
 from ..util.utils import read_jsonl
+from ..evaluation.config import temperature
 
 
 def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, bench_name: str = SORRY_TEMPLATED_NAME,
@@ -37,6 +38,8 @@ def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, be
             bench_name,
             "--data-mutation",
             mutation,
+            "--force_temperature",
+            temperature
         ]
         run_script(cmd, silent=silent)
 
@@ -53,7 +56,7 @@ def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, be
             "--parallel",
             str(parallel),
             "--data-mutation",
-            mutation,
+            mutation
         ]
         run_script(cmd, silent=silent)
 

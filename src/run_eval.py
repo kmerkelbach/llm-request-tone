@@ -13,7 +13,7 @@ from .evaluation.dto import EvalResult
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
-from src.evaluation.config import benchmarks_selected, models, lm_eval_limit
+from src.evaluation.config import benchmarks_selected, models, lm_eval_limit, temperature
 from .util.constants import *
 
 
@@ -63,7 +63,8 @@ def run_eval_for_benchmark_and_framings(framed_tasks: List[ModifiedTask], base_b
             num_concurrent=num_concurrent,
             silent=silent,
             log_debug_prompt_file=False,
-            unsafe_mode=True
+            unsafe_mode=True,
+            temperature=temperature
         )
 
     if len(tasks_sorry) > 0:

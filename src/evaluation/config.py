@@ -41,3 +41,5 @@ models = sorted([
 ])
 
 lm_eval_limit = None  # set to None for no limit
+
+temperature = 0.7
