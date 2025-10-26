@@ -13,7 +13,7 @@ from .evaluation.dto import EvalResult
 from .framing.task_framer import TaskFramer
 from .framing.dto import ModifiedTask
 from .util.utils import get_eval_dir, make_date_string
-from src.evaluation.config import benchmarks_selected, models, lm_eval_limit, temperature
+from src.evaluation.config import benchmarks_selected, models, lm_eval_limit, temperature, max_num_repetitions
 from .util.constants import *
 
 
@@ -103,7 +103,7 @@ def run_eval(force_run: bool = False):
     logger.info(f"Found {num_combos} combinations of model and benchmark.")
 
     # Load existing results
-    results_loaded: Dict[str, EvalResult] = load_results_from_dir(get_eval_dir())
+    results_loaded: Dict[str, List[EvalResult]] = load_results_from_dir(get_eval_dir())
 
     for idx, (model, benchmark) in enumerate(combos):
         logger.info(f"Combination {idx + 1} of {num_combos}: MODEL {model}; BENCHMARK {benchmark}")
@@ -113,7 +113,7 @@ def run_eval(force_run: bool = False):
             model=model,
             benchmark=benchmark
         )
-        if combo_key in results_loaded and not force_run:
+        if combo_key in results_loaded and not force_run and len(results_loaded[combo_key]) >= max_num_repetitions:
             logger.info(f"Skipping (we already have data)")
             continue
 
