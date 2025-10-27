@@ -23,7 +23,7 @@ class TableMaker:
         self._task_framer = TaskFramer()
 
         # Parse results as EvalResult
-        result_dict = load_results_from_dir(results_dir)
+        result_dict: Dict[str, List[EvalResult]] = load_results_from_dir(results_dir)
 
         # Make results table
         # - model
@@ -339,66 +339,67 @@ class TableMaker:
         else:
             return MODEL_SIZE_LARGE
 
-    def _make_results_table(self, results: Dict[str, EvalResult]) -> pd.DataFrame:
+    def _make_results_table(self, results: Dict[str, List[EvalResult]]) -> pd.DataFrame:
         # Build DataFrame by first constructing all the rows
         rows = []
 
-        for res_key, res in results.items():
+        for res_key, res_list in results.items():
+            for res in res_list:
 
-            # Ignore this result if the model does not appear in our model list
-            model = res.model
-            if model not in models:
-                logger.info(f"Skipping result with key '{res_key}': Model {model} not included in models list.")
-                continue
+                # Ignore this result if the model does not appear in our model list
+                model = res.model
+                if model not in models:
+                    logger.info(f"Skipping result with key '{res_key}': Model {model} not included in models list.")
+                    continue
 
-            # Find out model family and size
-            model_family = self._get_model_family(model)
-            model_size = self._get_model_size(model)
+                # Find out model family and size
+                model_family = self._get_model_family(model)
+                model_size = self._get_model_size(model)
 
-            for benchmark_name_templated, results_dict in res.results.items():
-                benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
+                for benchmark_name_templated, results_dict in res.results.items():
+                    benchmark_variation = benchmark_name_templated.replace(res.benchmark_base, "")
 
-                if benchmark_variation.startswith(TEMPLATED_STR):
-                    benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
-                benchmark_variation = benchmark_variation.strip("_")
+                    if benchmark_variation.startswith(TEMPLATED_STR):
+                        benchmark_variation = benchmark_variation[len(TEMPLATED_STR):]
+                    benchmark_variation = benchmark_variation.strip("_")
 
-                scenario_name = self._task_framer.get_display_name(scenario_name=benchmark_variation)
+                    scenario_name = self._task_framer.get_display_name(scenario_name=benchmark_variation)
 
-                if res.framework == FRAMEWORK_SORRY:
-                    # Report average compliance
-                    compliance_rates = list(results_dict.values())
-                    compliance_rate_avg = np.mean(compliance_rates)  # naive mean is unbiased since class counts are
-                    # balanced for SORRY-Bench
-                    metric = "compliance_rate"
-                    val = compliance_rate_avg
+                    if res.framework == FRAMEWORK_SORRY:
+                        # Report average compliance
+                        compliance_rates = list(results_dict.values())
+                        compliance_rate_avg = np.mean(compliance_rates)  # naive mean is unbiased since class counts are
+                        # balanced for SORRY-Bench
+                        metric = "compliance_rate"
+                        val = compliance_rate_avg
 
-                    # Calculate standard error:
-                    # standard deviation / square_root(n),
-                    # where n = number of values.
-                    s = np.std(compliance_rates)
-                    n = len(compliance_rates)
-                    stderr_val = s / np.sqrt(n)
-                else:
-                    # lm-eval
-                    metric = self._pick_metric(results_dict)
-                    val = float(results_dict[metric])
+                        # Calculate standard error:
+                        # standard deviation / square_root(n),
+                        # where n = number of values.
+                        s = np.std(compliance_rates)
+                        n = len(compliance_rates)
+                        stderr_val = s / np.sqrt(n)
+                    else:
+                        # lm-eval
+                        metric = self._pick_metric(results_dict)
+                        val = float(results_dict[metric])
 
-                    # Also load standard error
-                    metric_tokens = metric.split(",")
-                    stderr_metric = f"{metric_tokens[0]}_stderr," + ",".join(metric_tokens[1:])
-                    stderr_val = float(results_dict[stderr_metric])
+                        # Also load standard error
+                        metric_tokens = metric.split(",")
+                        stderr_metric = f"{metric_tokens[0]}_stderr," + ",".join(metric_tokens[1:])
+                        stderr_val = float(results_dict[stderr_metric])
 
-                rows.append({
-                    FIELD_MODEL: model,
-                    FIELD_MODEL_FAMILY: model_family,
-                    FIELD_MODEL_SIZE: model_size,
-                    FIELD_BENCHMARK: res.benchmark_base,
-                    FIELD_FRAMEWORK: res.framework,
-                    FIELD_SCENARIO: scenario_name,
-                    FIELD_METRIC_NAME: metric,
-                    FIELD_METRIC_VALUE: val,
-                    FIELD_METRIC_STDERR: stderr_val
-                })
+                    rows.append({
+                        FIELD_MODEL: model,
+                        FIELD_MODEL_FAMILY: model_family,
+                        FIELD_MODEL_SIZE: model_size,
+                        FIELD_BENCHMARK: res.benchmark_base,
+                        FIELD_FRAMEWORK: res.framework,
+                        FIELD_SCENARIO: scenario_name,
+                        FIELD_METRIC_NAME: metric,
+                        FIELD_METRIC_VALUE: val,
+                        FIELD_METRIC_STDERR: stderr_val
+                    })
 
         # Make "flat" DataFrame
         df = pd.DataFrame(rows)

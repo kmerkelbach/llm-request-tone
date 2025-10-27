@@ -38,8 +38,8 @@ def run_sorry_bench(model: str, data_mutations: List[str], parallel: int = 4, be
             bench_name,
             "--data-mutation",
             mutation,
-            "--force_temperature",
-            temperature
+            "--force-temperature",
+            str(temperature)
         ]
         run_script(cmd, silent=silent)
 

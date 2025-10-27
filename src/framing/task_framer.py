@@ -10,7 +10,7 @@ from .dto import Scenario, ModifiedTask
 from ..util.utils import (get_scenario_path, get_task_applied_folder, get_task_templates_folder, read_yaml, write_yaml,
                           read_jsonl, write_jsonl, mkdir)
 from ..util.constants import *
-from src.evaluation.config import benchmarks_selected
+from src.evaluation.config import benchmarks_selected, max_num_repetitions
 
 
 class TaskFramer:
@@ -53,6 +53,10 @@ class TaskFramer:
         directory, filename = os.path.split(PATH_SORRY_BENCH_QUESTIONS)
         parent_dir = os.path.split(directory)[0]
         templated_dir = os.path.join(parent_dir, "sorry_templated")
+
+        # If allowing multiple reruns, wipe saved SORRY-Bench data
+        if max_num_repetitions > 1:
+            shutil.rmtree(templated_dir)
 
         return mkdir(templated_dir)
 
