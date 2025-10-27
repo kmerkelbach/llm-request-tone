@@ -13,9 +13,9 @@ benchmarks_all = [
 ]
 
 benchmarks_selected = sorted([
-    # "gpqa_diamond_cot_zeroshot",
-    # "truthfulqa_gen",
-    # "mbpp_plus_instruct",
+    "gpqa_diamond_cot_zeroshot",
+    "truthfulqa_gen",
+    "mbpp_plus_instruct",
     SORRY_BENCH_NAME
 ])
 assert all(b in benchmarks_all for b in benchmarks_selected), "Not all selected benchmarks are in the main list!"
