@@ -105,6 +105,9 @@ def run_eval(force_run: bool = False):
     # Load existing results
     results_loaded: Dict[str, List[EvalResult]] = load_results_from_dir(get_eval_dir())
 
+    # Track if we ran anything
+    ran_anything = False
+
     for idx, (model, benchmark) in enumerate(combos):
         logger.info(f"Combination {idx + 1} of {num_combos}: MODEL {model}; BENCHMARK {benchmark}")
 
@@ -127,9 +130,17 @@ def run_eval(force_run: bool = False):
                 limit=lm_eval_limit,
                 write_to_disk=True  # critical: otherwise, nothing is saved
             )
+            ran_anything = True
         except RuntimeError as e:
             logger.warning(f"Could not run combo {model} / {benchmark}.")
 
+    return ran_anything
+
 
 if __name__ == "__main__":
-    run_eval()
+    done = False
+    while not done:
+        done = not run_eval()
+        if not done:
+            logger.info("Re-running to check if there is more to do.")
+    logger.info("Done with all benchmarks.")

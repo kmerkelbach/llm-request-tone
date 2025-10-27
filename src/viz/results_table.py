@@ -48,54 +48,58 @@ class TableMaker:
         self._analyze_stats()
 
     def _analyze_stats(self, alpha: float = 0.05, do_bonferroni_correction: bool = True):
-        df = self.results_df
+        df_full = self.results_df
 
-        # Remember tests to run
-        tests_to_run = []
+        # Do tests separately for each framework
+        for framework in np.unique(df_full[FIELD_FRAMEWORK].values):
+            # Remember tests to run
+            tests_to_run = []
 
-        # For each column, test values against each other. E.g., do small models perform differently from large models?
-        for col in [FIELD_SCENARIO, FIELD_MODEL_SIZE]:
-            uniq = np.unique(df[col].values)
+            df = df_full[df_full[FIELD_FRAMEWORK] == framework]
 
-            for val_a, val_b in combinations(uniq, 2):
-                group_a_vals = df[df[col] == val_a][FIELD_METRIC_VALUE].values
-                group_b_vals = df[df[col] == val_b][FIELD_METRIC_VALUE].values
+            # For each column, test values against each other. E.g., do small models perform differently from large models?
+            for col in [FIELD_SCENARIO, FIELD_MODEL_SIZE]:
+                uniq = np.unique(df[col].values)
 
-                tests_to_run.append(
-                    StatTestData(
-                        group_a_name=val_a,
-                        group_a_vals=group_a_vals,
-                        group_b_name=val_b,
-                        group_b_vals=group_b_vals,
-                        domain_name=col,
-                        test_alpha=alpha,
-                        test_p_value=None,
-                        test_is_significant=None
+                for val_a, val_b in combinations(uniq, 2):
+                    group_a_vals = df[df[col] == val_a][FIELD_METRIC_VALUE].values
+                    group_b_vals = df[df[col] == val_b][FIELD_METRIC_VALUE].values
+
+                    tests_to_run.append(
+                        StatTestData(
+                            group_a_name=val_a,
+                            group_a_vals=group_a_vals,
+                            group_b_name=val_b,
+                            group_b_vals=group_b_vals,
+                            domain_name=col,
+                            test_alpha=alpha,
+                            test_p_value=None,
+                            test_is_significant=None
+                        )
                     )
-                )
 
-        # Apply Bonferroni correction (since we might be running a lot of tests)
-        if do_bonferroni_correction:
+            # Apply Bonferroni correction (since we might be running a lot of tests)
+            if do_bonferroni_correction:
+                for test in tests_to_run:
+                    test.test_alpha /= len(tests_to_run)
+
+            # Run all tests
             for test in tests_to_run:
-                test.test_alpha /= len(tests_to_run)
+                self._run_welchs_ttest(test)
+            logger.info(f"Ran {len(tests_to_run)} statistical tests (framework = {framework}).")
 
-        # Run all tests
-        for test in tests_to_run:
-            self._run_welchs_ttest(test)
-        logger.info(f"Ran {len(tests_to_run)} statistical tests.")
+            # Report results
+            tests_to_run.sort(key=lambda test: test.test_p_value)
+            tests_sig = [test for test in tests_to_run if test.test_is_significant]
 
-        # Report results
-        tests_to_run.sort(key=lambda test: test.test_p_value)
-        tests_sig = [test for test in tests_to_run if test.test_is_significant]
+            if len(tests_sig) == 0:
+                logger.info("Found no statistically significant differences.")
+            else:
+                logger.info(f"Found {len(tests_sig)} statistically significant differences: ")
 
-        if len(tests_sig) == 0:
-            logger.info("Found no statistically significant differences.")
-        else:
-            logger.info(f"Found {len(tests_sig)} statistically significant differences: ")
-
-            for test in tests_sig:
-                logger.info(f"For {test.domain_name}, {test.group_a_name} is different from {test.group_b_name}"
-                            f" (p-value: {test.test_p_value})")
+                for test in tests_sig:
+                    logger.info(f"For {test.domain_name}, {test.group_a_name} is different from {test.group_b_name}"
+                                f" (p-value: {test.test_p_value})")
 
     def _run_welchs_ttest(self, test_data: StatTestData) -> None:
         # Perform Welch’s t-test
