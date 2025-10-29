@@ -43,4 +43,4 @@ models = sorted([
 lm_eval_limit = None  # set to None for no limit
 
 temperature = 0.7
-max_num_repetitions = 3
+max_num_repetitions = 16

@@ -17,8 +17,10 @@ class EvalResult:
 class StatTestData:
     group_a_name: str
     group_a_vals: List[float]
+    group_a_mean: float
     group_b_name: str
     group_b_vals: List[float]
+    group_b_mean: float
     domain_name: str
     test_alpha: Optional[float]
 

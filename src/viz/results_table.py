@@ -59,9 +59,16 @@ class TableMaker:
 
             # For each column, test values against each other. E.g., do small models perform differently from large models?
             for col in [FIELD_SCENARIO, FIELD_MODEL_SIZE]:
-                uniq = np.unique(df[col].values)
 
-                for val_a, val_b in combinations(uniq, 2):
+                uniq = np.unique(df[col].values)
+                if col == FIELD_SCENARIO:
+                    combos = [(uniq[0], uniq[i]) for i in range(1, len(uniq))]
+                    # [(Baseline, Breathing), (Baseline, Expert), ...]
+                else:
+                    combos = combinations(uniq, 2)
+                    # All possible combinations of two entries
+
+                for val_a, val_b in combos:
                     group_a_vals = df[df[col] == val_a][FIELD_METRIC_VALUE].values
                     group_b_vals = df[df[col] == val_b][FIELD_METRIC_VALUE].values
 
@@ -69,8 +76,10 @@ class TableMaker:
                         StatTestData(
                             group_a_name=val_a,
                             group_a_vals=group_a_vals,
+                            group_a_mean=np.mean(group_a_vals),
                             group_b_name=val_b,
                             group_b_vals=group_b_vals,
+                            group_b_mean=np.mean(group_b_vals),
                             domain_name=col,
                             test_alpha=alpha,
                             test_p_value=None,
@@ -98,8 +107,12 @@ class TableMaker:
                 logger.info(f"Found {len(tests_sig)} statistically significant differences: ")
 
                 for test in tests_sig:
-                    logger.info(f"For {test.domain_name}, {test.group_a_name} is different from {test.group_b_name}"
-                                f" (p-value: {test.test_p_value})")
+                    msg = f"For {test.domain_name}, {test.group_a_name} is different from {test.group_b_name}" \
+                          f" (p-value: {test.test_p_value})"
+                    diff_strs = ("higher", ">") if test.group_a_mean > test.group_b_mean else ("lower", "<")
+                    msg += (f"\n-> {test.group_a_name} has a {diff_strs[0]} mean than {test.group_b_name} "
+                            f"({test.group_a_mean:0.4f} {diff_strs[1]} {test.group_b_mean:0.4f})")
+                    logger.info(msg)
 
     def _run_welchs_ttest(self, test_data: StatTestData) -> None:
         # Perform Welch’s t-test
