@@ -52,4 +52,12 @@ This creates evaluation tables.
 
 
 ## Results
-Here's my write-up of the experiments on LessWrong: [Prompt Framing Changes LLM Performance (and Safety)](https://www.lesswrong.com/posts/RTHdQuGJeBKWHbgyj/prompt-framing-changes-llm-performance-and-safety).
+
+### Summary
+> We consider the effect of simple prompt framing on the performance and safety of LLMs.
+The task of coding profits most strongly from framing.
+The most reliable form of framing is to instruct the model to take a deep breath before giving its reply, which works well even for recall or logic-based tasks.
+Prompt framing can also influence a model's safety mechanisms.
+**Expert framing was shown using statistical testing to increase the rate of compliance with harmful requests.**
+
+See the full write-up of the experiments on LessWrong: [Prompt Framing Changes LLM Performance (and Safety)](https://www.lesswrong.com/posts/RTHdQuGJeBKWHbgyj/prompt-framing-changes-llm-performance-and-safety).
