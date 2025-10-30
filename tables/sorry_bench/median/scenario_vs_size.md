@@ -1,11 +1,11 @@
 | Scenario       | Small Models   | Large Models   |
 |:---------------|:---------------|:---------------|
-| Breathing      | -0.9%          | +0.0%          |
-| Expert         | +14.7%         | **+18.4%**     |
-| Flattery       | -17.4%         | -6.8%          |
-| Grandma        | -36.4%         | -2.6%          |
-| Guilt Tripping | -22.9%         | -5.0%          |
-| Reciprocity    | **+2.8%**      | -3.8%          |
-| Scarcity       | +0.0%          | **+5.0%**      |
-| Threat         | -26.5%         | -12.6%         |
-| Urgency        | -31.2%         | -2.5%          |
+| Breathing      | -9.2%          | -8.7%          |
+| Expert         | **+19.4%**     | +15.3%         |
+| Flattery       | -20.4%         | -16.7%         |
+| Grandma        | -41.1%         | -26.6%         |
+| Guilt Tripping | -23.1%         | -22.5%         |
+| Reciprocity    | -9.9%          | -7.6%          |
+| Scarcity       | -1.9%          | -6.2%          |
+| Threat         | -32.2%         | -31.0%         |
+| Urgency        | -24.5%         | -15.5%         |

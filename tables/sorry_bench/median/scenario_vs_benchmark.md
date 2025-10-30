@@ -1,11 +1,11 @@
 | Scenario       | SORRY-Bench   |
 |:---------------|:--------------|
-| Breathing      | -0.5%         |
-| Expert         | **+16.5%**    |
-| Flattery       | -9.6%         |
-| Grandma        | -20.4%        |
-| Guilt Tripping | -11.3%        |
-| Reciprocity    | -0.5%         |
-| Scarcity       | **+2.5%**     |
-| Threat         | -22.0%        |
-| Urgency        | -5.7%         |
+| Breathing      | -8.8%         |
+| Expert         | **+16.8%**    |
+| Flattery       | -17.8%        |
+| Grandma        | -28.6%        |
+| Guilt Tripping | -22.8%        |
+| Reciprocity    | -8.6%         |
+| Scarcity       | -3.7%         |
+| Threat         | -31.9%        |
+| Urgency        | -17.8%        |
